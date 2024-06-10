@@ -1,13 +1,11 @@
 class Quiz {
   int id;
-  int lexikonId;
   String question;
   List<String> answers;
   int correctAnswerIndex;
 
   Quiz({
     required this.id,
-    required this.lexikonId,
     required this.question,
     required this.answers,
     required this.correctAnswerIndex,

@@ -1,5 +1,5 @@
 class User {
-  int id;
+  String userName;
   String firstName;
   String lastName;
   String email;
@@ -8,7 +8,7 @@ class User {
   DateTime registrationDate;
 
   User({
-    required this.id,
+    required this.userName,
     required this.firstName,
     required this.lastName,
     required this.email,

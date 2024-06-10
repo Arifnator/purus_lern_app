@@ -13,6 +13,6 @@ class Lexikon {
   });
 
   void displayLexikonInfo() {
-    print('Lexikon: $title, Category: $category');
+    print('Begriff: $title, Beschreibung: $description');
   }
 }
