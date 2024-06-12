@@ -1,23 +1,23 @@
 class User {
-  String userName;
   String firstName;
   String lastName;
+  bool isWomen;
   String email;
-  String password;
   DateTime dateOfBirth;
   DateTime registrationDate;
+  String password;
+  String regCode;
+  bool faceId;
 
   User({
-    required this.userName,
     required this.firstName,
     required this.lastName,
+    required this.isWomen,
     required this.email,
-    required this.password,
     required this.dateOfBirth,
     required this.registrationDate,
+    required this.password,
+    required this.regCode,
+    required this.faceId,
   });
-
-  void displayUserInfo() {
-    print('User: $firstName $lastName, Email: $email');
-  }
 }
