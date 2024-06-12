@@ -6,14 +6,60 @@ import "data/database_repository.dart";
 import "data/mock_database.dart";
 
 void main() {
-  DatabaseRepositoryQuizzes q1 = MockDatabaseQuizzes();
-  q1.addQuiz(Quiz(
-      question: "jjj?",
-      answers: ["aa", "bb", "cc", "dd"],
-      correctAnswerIndex: 0));
+  DatabaseRepositoryUsers userDb = MockDatabaseUsers();
 
-  q1.displayQuizInfo(1);
-  q1.displayRightAnswer(1, 1);
+  userDb.addUser(
+      "Arifnator",
+      User(
+          firstName: "Arif",
+          lastName: "Ayduran",
+          isWomen: false,
+          email: "aaa",
+          dateOfBirth: DateTime(1991, 06, 22),
+          registrationDate: DateTime.now(),
+          password: "bbb",
+          regCode: "www",
+          faceId: true));
+
+  userDb.displayUserInfo("Arifnator");
+  userDb.removeUser("Arifnator");
+  userDb.displayUserInfo("Arifnator");
+
+  print("----------------------------------------------------------------");
+
+  MockDatabaseQuizzes quizDb = MockDatabaseQuizzes();
+
+  quizDb.addQuiz(
+      Category(name: "Kategorie 5"),
+      Quiz(
+          question: "mmm?",
+          answers: ["a", "b", "c", "d"],
+          correctAnswerIndex: 2));
+
+  print(quizDb.allQuizzes["Kategorie 5"]);
+
+  printAllQuizzes(quizDb);
+
+  quizDb.displayQuizInfo(1);
+  quizDb.displayRightAnswer(1, 1);
+  quizDb.removeQuiz(1);
+  quizDb.displayQuizInfo(1);
+
+    print("----------------------------------------------------------------");
+
+    
 }
 
-// gercek quiz yap
+void printAllQuizzes(MockDatabaseQuizzes quizDb) {
+  quizDb.allQuizzes.forEach((category, quizzes) {
+    print('${category.name}:');
+    quizzes.forEach((id, quiz) {
+      print('  Quiz $id: ${quiz.question}');
+    });
+  });
+}
+
+
+// komplettprogramm just for fun + quiz mit stdin
+// fix: Kategorie 5 null + kategorie 5 wird neu erstellt + Unhandled exception1...
+// Alle funktionen weiter testen

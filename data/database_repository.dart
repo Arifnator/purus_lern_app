@@ -4,25 +4,29 @@ import '../models/quiz.dart';
 import '../models/user.dart';
 
 abstract class DatabaseRepositoryCategories {
-  void addCategory(int id, Category category);
+  Map<int, Category> allCategories = {};
+  void addCategory(Category category);
   void removeCategory(int id);
   void displayCategory(int id);
 }
 
 abstract class DatabaseRepositoryLexica {
-  void addLexicon(Lexicon lexicon);
+  Map<Category, Map<int, Lexicon>> allLexica = {};
+  void addLexicon(Category category, Lexicon lexicon);
   void removeLexicon(int id);
   void displayLexicon(int id);
 }
 
 abstract class DatabaseRepositoryQuizzes {
-  void addQuiz(Quiz quiz);
+  Map<Category, Map<int, Quiz>> allQuizzes = {};
+  void addQuiz(Category category, Quiz quiz);
   void removeQuiz(int id);
   void displayQuizInfo(int id);
   void displayRightAnswer(int id, int userAnswerIndex);
 }
 
 abstract class DatabaseRepositoryUsers {
+  Map<String, User> allUsers = {};
   void addUser(String id, User user);
   void removeUser(String id);
   void displayUserInfo(String id);

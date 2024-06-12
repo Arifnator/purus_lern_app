@@ -5,26 +5,27 @@ import "../models/quiz.dart";
 import "../models/user.dart";
 
 class MockDatabaseCategories implements DatabaseRepositoryCategories {
-  Map<int, Category> allCategories = {};
+  @override
+  Map<int, Category> allCategories = {
+    1: Category(name: "Kategorie 1"),
+    2: Category(name: "Kategorie 2"),
+    3: Category(name: "Kategorie 3"),
+    4: Category(name: "Kategorie 4"),
+    5: Category(name: "Kategorie 5"),
+    6: Category(name: "Kategorie 6"),
+    7: Category(name: "Kategorie 7"),
+    8: Category(name: "Kategorie 8"),
+    9: Category(name: "Kategorie 9"),
+    10: Category(name: "Kategorie 10"),
+  };
 
   @override
-  void addCategory(int id, Category category) {
-    int newId = 1;
-    for (int id in allCategories.keys) {
-      if (id >= newId) {
-        newId = id + 1;
-      }
-      allCategories[newId] = category;
-    }
-  }
-
-  /* Oder mit reduce
-    void addCategory(int id, Category category) {
-      int newId = allCategories.isEmpty
+  void addCategory(Category category) {
+    int newId = allCategories.isEmpty
         ? 1
         : allCategories.keys.reduce((a, b) => a > b ? a : b) + 1;
-      allCategories[newId] = category;
-    } */
+    allCategories[newId] = category;
+  }
 
   @override
   void displayCategory(int id) {
@@ -38,108 +39,125 @@ class MockDatabaseCategories implements DatabaseRepositoryCategories {
   @override
   void removeCategory(int id) {
     if (allCategories.containsKey(id)) {
-      allCategories.remove(id);
       print("Kategorie ${allCategories[id]!.name} ist erfolgreich gelöscht.");
+      allCategories.remove(id);
     } else {
       print("Kein Eintrag gefunden");
     }
   }
 }
 
-class MockDatabaseLexica implements DatabaseRepositoryLexica {
-  Map<int, Lexicon> allLexica = {};
-
+class MockDatabaseLexica extends MockDatabaseCategories
+    implements DatabaseRepositoryLexica {
   @override
-  void addLexicon(Lexicon lexicon) {
-    int newId = 1;
-    for (int id in allLexica.keys) {
-      if (id >= newId) {
-        newId = id + 1;
-      }
-      allLexica[newId] = lexicon;
+  Map<Category, Map<int, Lexicon>> allLexica = {};
+  int _nextId = 1;
+
+  MockDatabaseLexica() {
+    for (Category category in allCategories.values) {
+      allLexica[category] = {};
     }
   }
 
-  /* Oder mit reduce
-    void addLexicon(Lexicon lexicon) {
-      int newId = allLexica.isEmpty
-        ? 1
-        : allLexica.keys.reduce((a, b) => a > b ? a : b) + 1;
-      allLexica[newId] = lexicon;
-    } */
-
   @override
-  void displayLexicon(int id) {
-    if (allLexica.containsKey(id)) {
-      print("${allLexica[id]!.title}: ${allLexica[id]!.description}");
-    } else {
-      print("Kein Eintrag gefunden");
+  void addLexicon(Category category, Lexicon lexicon) {
+    if (!allLexica.containsKey(category)) {
+      addCategory(category);
+      allLexica[category] = {};
     }
+    allLexica[category]![_nextId] = lexicon;
+    _nextId++;
   }
 
   @override
   void removeLexicon(int id) {
-    if (allLexica.containsKey(id)) {
-      allLexica.remove(id);
-      print("Lexikonnummer $id ist erfolgreich gelöscht.");
-    } else {
-      print("Kein Eintrag gefunden");
+    for (var category in allLexica.keys) {
+      if (allLexica[category]!.containsKey(id)) {
+        allLexica[category]!.remove(id);
+        print("Lexikonnummer $id ist erfolgreich gelöscht.");
+        return;
+      }
     }
+    print("Kein Eintrag gefunden");
+  }
+
+  @override
+  void displayLexicon(int id) {
+    for (var category in allLexica.keys) {
+      if (allLexica[category]!.containsKey(id)) {
+        print(
+            "${allLexica[category]![id]!.title}: ${allLexica[category]![id]!.description}");
+        return;
+      }
+    }
+    print("Kein Eintrag gefunden");
   }
 }
 
-class MockDatabaseQuizzes implements DatabaseRepositoryQuizzes {
-  Map<int, Quiz> allQuizzes = {};
+class MockDatabaseQuizzes extends MockDatabaseCategories
+    implements DatabaseRepositoryQuizzes {
+  @override
+  Map<Category, Map<int, Quiz>> allQuizzes = {};
+  int _nextId = 1;
+
+  MockDatabaseQuizzes() {
+    for (Category category in allCategories.values) {
+      allQuizzes[category] = {};
+    }
+  }
 
   @override
-  void addQuiz(Quiz quiz) {
-    int newId = 1;
-    for (int id in allQuizzes.keys) {
-      if (id >= newId) {
-        newId = id + 1;
-      }
+  void addQuiz(Category category, Quiz quiz) {
+    if (!allQuizzes.containsKey(category)) {
+      addCategory(category);
+      allQuizzes[category] = {};
     }
-    allQuizzes[newId] = quiz;
+    allQuizzes[category]![_nextId] = quiz;
+    _nextId++;
   }
-  /* Oder mit reduce
-  void addQuiz(Quiz quiz) {
-    int newId = allQuizzes.isEmpty
-        ? 1
-        : allQuizzes.keys.reduce((a, b) => a > b ? a : b) + 1;
-    allQuizzes[newId] = quiz;
-  } */
 
   @override
   void removeQuiz(int id) {
-    if (allQuizzes.containsKey(id)) {
-      allQuizzes.remove(id);
-      print("Quiznummer $id ist erfolgreich gelöscht.");
-    } else {
-      print("Quiznummer $id ist nicht aufgelistet.");
+    for (var category in allQuizzes.keys) {
+      if (allQuizzes[category]!.containsKey(id)) {
+        allQuizzes[category]!.remove(id);
+        print("Quiznummer $id ist erfolgreich gelöscht.");
+        return;
+      }
     }
+    print("Kein Eintrag gefunden");
   }
 
   @override
   void displayQuizInfo(int id) {
-    print('Quiz $id: ${allQuizzes[id]!.question}');
-    for (int i = 0; i < allQuizzes[id]!.answers.length; i++) {
-      print('${i + 1}. ${allQuizzes[id]!.answers[i]}');
+    for (var category in allQuizzes.keys) {
+      if (allQuizzes[category]!.containsKey(id)) {
+        print('Quiz $id: ${allQuizzes[category]![id]!.question}');
+        for (int i = 0; i < allQuizzes[category]![id]!.answers.length; i++) {
+          print('${i + 1}. ${allQuizzes[category]![id]!.answers[i]}');
+        }
+      } else {
+        print("Kein Eintrag gefunden");
+      }
     }
   }
 
   @override
   void displayRightAnswer(int id, int userAnswerIndex) {
-    if (userAnswerIndex == allQuizzes[id]!.correctAnswerIndex) {
-      print(
-          '${allQuizzes[id]!.answers[userAnswerIndex]} ist die richtige Antwort!');
-    } else {
-      print(
-          '${allQuizzes[id]!.answers[userAnswerIndex]} ist falsch. ${allQuizzes[id]!.answers[allQuizzes[id]!.correctAnswerIndex]} ist die richtige Antwort!');
+    for (var category in allQuizzes.keys) {
+      if (userAnswerIndex == allQuizzes[category]![id]!.correctAnswerIndex) {
+        print(
+            '${allQuizzes[category]![id]!.answers[userAnswerIndex]} ist die richtige Antwort!');
+      } else {
+        print(
+            '${allQuizzes[category]![id]!.answers[userAnswerIndex]} ist falsch. ${allQuizzes[category]![id]!.answers[allQuizzes[category]![id]!.correctAnswerIndex]} ist die richtige Antwort!');
+      }
     }
   }
 }
 
 class MockDatabaseUsers implements DatabaseRepositoryUsers {
+  @override
   Map<String, User> allUsers = {};
 
   @override
