@@ -1,5 +1,4 @@
 import 'models/category.dart';
-import 'models/lexicon.dart';
 import 'models/user.dart';
 import 'models/quiz.dart';
 import "data/database_repository.dart";
@@ -45,9 +44,7 @@ void main() {
   quizDb.removeQuiz(1);
   quizDb.displayQuizInfo(1);
 
-    print("----------------------------------------------------------------");
-
-    
+  print("----------------------------------------------------------------");
 }
 
 void printAllQuizzes(MockDatabaseQuizzes quizDb) {
@@ -61,5 +58,6 @@ void printAllQuizzes(MockDatabaseQuizzes quizDb) {
 
 
 // komplettprogramm just for fun + quiz mit stdin
+// import 'models/lexicon.dart';
 // fix: Kategorie 5 null + kategorie 5 wird neu erstellt + Unhandled exception1...
 // Alle funktionen weiter testen
