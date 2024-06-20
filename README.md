@@ -1,1 +1,1 @@
-## https://github.com/Arifnator/Purus_Lern_App.git
+## https://github.com/Arifnator/purus_lern_app.git
