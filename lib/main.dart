@@ -7,6 +7,71 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    AppBar myAppBar = AppBar(
+      backgroundColor: Colors.orange,
+      foregroundColor: Colors.black,
+      title: const Text("Test App"),
+    );
+    BottomNavigationBar myBNB = BottomNavigationBar(
+        // backgroundColor: Colors.orange,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: const Color.fromARGB(255, 92, 56, 1),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications_active_outlined),
+            label: "ssss",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart_outlined),
+            label: "aaa",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.credit_card_outlined),
+            label: "ggg",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_outlined),
+            label: "ssss",
+          )
+        ]);
+    return MaterialApp(
+      home: Scaffold(
+        appBar: myAppBar,
+        bottomNavigationBar: Theme(
+            data: Theme.of(context).copyWith(canvasColor: Colors.orange),
+            child: myBNB),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* STANDART FLUTTER
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -123,3 +188,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/
