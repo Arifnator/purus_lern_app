@@ -1,4 +1,33 @@
 import 'package:flutter/material.dart';
+import 'screens/splash.dart';
+
+// 1. First open
+// 2. Autologin FaceID
+// 3. Angemeldet bleiben
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: SplashScreen(),
+    );
+  }
+}
+
+
+
+
+
+
+/* EXPERIMENT1
+
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,12 +78,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
+*/
 
 
 
