@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:purus_lern_app/screens/dashboard.dart';
+import 'package:purus_lern_app/screens/auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/styles/my_colors.dart';
 
@@ -19,7 +20,7 @@ class SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const DashboardScreen()),
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
       ),
     );
   }
