@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:purus_lern_app/screens/dashboard.dart';
+// import 'package:purus_lern_app/screens/dashboard.dart';
 import 'package:purus_lern_app/screens/auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/styles/my_colors.dart';
