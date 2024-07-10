@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 // alle weights mit 510 wurden auf 500 geändert!
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+class MainmenuScreen extends StatelessWidget {
+  const MainmenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

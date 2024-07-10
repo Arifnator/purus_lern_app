@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:purus_lern_app/src/core/dashboard_screen.dart';
+import 'package:purus_lern_app/src/core/mainmenu_screen.dart';
 
 // 590 zu 600 -- 210 zu 200 -- 510 zu 500
 
@@ -54,47 +54,47 @@ class LoginScreen extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const DashboardScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => const MainmenuScreen()),
                           );
                         },
                         child: Container(
-                        height: 53,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 14),
-                        clipBehavior: Clip.antiAlias,
-                        decoration: ShapeDecoration(
-                          color: const Color(0xFF008159),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(43),
+                          height: 53,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 14),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: ShapeDecoration(
+                            color: const Color(0xFF008159),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(43),
+                            ),
                           ),
-                        ),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: SizedBox(
-                                child: Text(
-                                  'Anmelden',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 21,
-                                    fontFamily: 'SF Pro',
-                                    fontWeight: FontWeight.w500,
-                                    height: 0,
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: SizedBox(
+                                  child: Text(
+                                    'Anmelden',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 21,
+                                      fontFamily: 'SF Pro',
+                                      fontWeight: FontWeight.w500,
+                                      height: 0,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    ),
                   ],
-                
                 ),
               ),
             ),
@@ -558,7 +558,6 @@ class LoginScreen extends StatelessWidget {
                         width: 97.19,
                         height: 50.74,
                         decoration: const BoxDecoration(
-                          
                           image: DecorationImage(
                             image: ExactAssetImage(
                                 "assets/images/LogoHellgrün.png"),
