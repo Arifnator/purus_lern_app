@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:purus_lern_app/screens/dashboard.dart';
+import 'package:purus_lern_app/src/core/dashboard_screen.dart';
 
 // 590 zu 600 -- 210 zu 200 -- 510 zu 500
 

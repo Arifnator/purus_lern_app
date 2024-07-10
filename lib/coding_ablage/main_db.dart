@@ -4,6 +4,15 @@ import 'models/quiz.dart';
 import "data/database_repository.dart";
 import "data/mock_database.dart";
 
+
+
+
+// komplettprogramm just for fun + quiz mit stdin
+// import 'models/lexicon.dart';
+// fix: Kategorie 5 null + kategorie 5 wird neu erstellt + Unhandled exception1...
+// Alle funktionen weiter testen
+
+
 void main() {
   DatabaseRepositoryUsers userDb = MockDatabaseUsers();
 
@@ -55,9 +64,3 @@ void printAllQuizzes(MockDatabaseQuizzes quizDb) {
     });
   });
 }
-
-
-// komplettprogramm just for fun + quiz mit stdin
-// import 'models/lexicon.dart';
-// fix: Kategorie 5 null + kategorie 5 wird neu erstellt + Unhandled exception1...
-// Alle funktionen weiter testen

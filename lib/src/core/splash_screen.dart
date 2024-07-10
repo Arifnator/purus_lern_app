@@ -1,8 +1,7 @@
 import 'dart:async';
-// import 'package:purus_lern_app/screens/dashboard.dart';
-import 'package:purus_lern_app/screens/auth/login.dart';
+import 'package:purus_lern_app/src/features/authentication/presentation/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:purus_lern_app/styles/my_colors.dart';
+import 'package:purus_lern_app/src/config/palette.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,22 +33,3 @@ class SplashScreenState extends State<SplashScreen> {
     ));
   }
 }
-
-
-
-
-
-
-// Text(
-//     '9:41',
-//     textAlign: TextAlign.center,
-//     style: TextStyle(
-//         color: Colors.white,
-//         fontSize: 17,
-//         fontFamily: 'SF Pro',
-//         fontWeight: FontWeight.w590,
-//         height: 0.08,
-//     ),
-// )
-
-
