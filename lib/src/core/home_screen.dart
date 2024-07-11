@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:purus_lern_app/rivetest/my_animated_bottom_bar.dart';
+import 'package:purus_lern_app/src/core/my_animated_bottom_bar.dart';
 
 import 'package:purus_lern_app/src/config/theme.dart';
 
@@ -14,7 +14,6 @@ const Map<String, Widget> mainScreens = {
   "Lexikon": LexiconScreen(),
   "Einstellungen": SettingsScreen(),
 };
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -43,9 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: mainScreens.values.toList()[_currentIndex],
         bottomNavigationBar: MyAnimatedBottomAppBar(
-        currentIndex: _currentIndex,
-        onTabSelected: _onTabSelected,
-      ),
+          currentIndex: _currentIndex,
+          onTabSelected: _onTabSelected,
+        ),
       ),
     );
   }

@@ -35,17 +35,17 @@ class _MyAnimatedBottomAppBarState extends State<MyAnimatedBottomAppBar> {
       _homeInput = input;
       _homeInput!.value = true;
     });
-    _loadRiveFile('assets/animations/home.riv', (artboard, input) {
+    _loadRiveFile('assets/animations/edu.riv', (artboard, input) {
       _eduArtboard = artboard;
       _eduInput = input;
-      _eduInput!.value = false;
+      _eduInput!.value = true;
     });
-    _loadRiveFile('assets/animations/home.riv', (artboard, input) {
+    _loadRiveFile('assets/animations/lexicon.riv', (artboard, input) {
       _lexiArtboard = artboard;
       _lexiInput = input;
-      _lexiInput!.value = false;
+      _lexiInput!.value = true;
     });
-    _loadRiveFile('assets/animations/home.riv', (artboard, input) {
+    _loadRiveFile('assets/animations/settings.riv', (artboard, input) {
       _settingsArtboard = artboard;
       _settingsInput = input;
       _settingsInput!.value = false;
@@ -54,7 +54,7 @@ class _MyAnimatedBottomAppBarState extends State<MyAnimatedBottomAppBar> {
 
   Future<void> _loadRiveFile(String assetPath,
       void Function(Artboard, SMIInput<bool>?) callback) async {
-    await RiveFile.initialize(); // Ensure Rive is initialized
+    await RiveFile.initialize();
     final data = await rootBundle.load(assetPath);
     final file = RiveFile.import(data);
     final artboard = file.mainArtboard;
