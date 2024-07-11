@@ -8,3 +8,9 @@ BoxDecoration backgroundGradient = BoxDecoration(
     colors: [Colors.white, purusGreen, purusDarkGreen],
   ),
 );
+
+const LinearGradient bottomBarGradient = LinearGradient(
+  begin: Alignment(0.00, -1.00),
+  end: Alignment(0, 1),
+  colors: [Color(0xFF338771), Color(0xFF137257), Color(0xFF003826)],
+);

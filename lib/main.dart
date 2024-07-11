@@ -13,6 +13,12 @@ import 'package:purus_lern_app/src/features/authentication/presentation/login_sc
 // 2. Autologin FaceID
 // 3. Angemeldet bleiben
 
+// BOXCONTRAINS
+
+// Icons skalierbar!
+// icon & altina shadow effekt
+// ontap effekt
+
 Map<String, Widget> authenticationRoutes = {
   "Login": const LoginScreen(),
   "FaceId": const LoginFaceidScreen(),
