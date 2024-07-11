@@ -12,7 +12,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:purus_lern_app/src/config/theme.dart';
-import 'package:purus_lern_app/src/core/mainmenu_screen.dart';
+import 'package:purus_lern_app/src/features/mainmenu/presentation/mainmenu_screen.dart';
 import 'package:purus_lern_app/src/features/education_portal/education_screen.dart';
 import 'package:purus_lern_app/src/features/lexicon/presentation/lexicon_screen.dart';
 import 'package:purus_lern_app/src/features/settings/presentation/settings_screen.dart';

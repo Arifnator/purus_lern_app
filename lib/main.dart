@@ -1,6 +1,6 @@
 // import 'src/core/splash_screen.dart'; -- SplashScreen()
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:purus_lern_app/src/config/main_config.dart';
 import 'package:purus_lern_app/src/core/home_screen.dart';
 import 'package:purus_lern_app/src/core/splash_screen.dart';
@@ -9,7 +9,7 @@ import 'package:purus_lern_app/src/features/authentication/presentation/login_sc
 
 // feature first: https://mobterest.medium.com/mastering-feature-first-architecture-building-scalable-flutter-mobile-apps-5c706b6e42be
 
-// 1. First open
+// 1. First open + onboarding
 // 2. Autologin FaceID
 // 3. Angemeldet bleiben
 

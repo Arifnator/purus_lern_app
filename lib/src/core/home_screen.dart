@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:purus_lern_app/src/core/my_animated_bottom_bar.dart';
+import 'package:purus_lern_app/src/core/my_animated_bottom_bar_widget.dart';
 
 import 'package:purus_lern_app/src/config/theme.dart';
+import 'package:purus_lern_app/src/core/my_animated_top_bar_widget.dart';
 
-import 'package:purus_lern_app/src/core/mainmenu_screen.dart';
+import 'package:purus_lern_app/src/features/mainmenu/presentation/mainmenu_screen.dart';
 import 'package:purus_lern_app/src/features/education_portal/education_screen.dart';
 import 'package:purus_lern_app/src/features/lexicon/presentation/lexicon_screen.dart';
 import 'package:purus_lern_app/src/features/settings/presentation/settings_screen.dart';
@@ -37,11 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: backgroundGradient,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-        ),
+        appBar: const MyAnimatedTopBarWidget(),
         body: mainScreens.values.toList()[_currentIndex],
-        bottomNavigationBar: MyAnimatedBottomAppBar(
+        bottomNavigationBar: MyAnimatedBottomAppBarWidget(
           currentIndex: _currentIndex,
           onTabSelected: _onTabSelected,
         ),

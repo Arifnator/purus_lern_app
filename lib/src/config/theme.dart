@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
 
-BoxDecoration backgroundGradient = BoxDecoration(
+const BoxDecoration backgroundGradient = BoxDecoration(
   gradient: LinearGradient(
-    begin: const Alignment(0.00, -1.00),
-    end: const Alignment(0, 1),
+    begin: Alignment(0.00, -1.00),
+    end: Alignment(0, 1),
+    stops: [0.2, 0.8, 1.0],
     colors: [Colors.white, purusGreen, purusDarkGreen],
   ),
 );
@@ -12,5 +13,14 @@ BoxDecoration backgroundGradient = BoxDecoration(
 const LinearGradient bottomBarGradient = LinearGradient(
   begin: Alignment(0.00, -1.00),
   end: Alignment(0, 1),
-  colors: [Color(0xFF338771), Color(0xFF137257), Color(0xFF003826)],
+  colors: [
+    purusGreen,
+    Color.fromARGB(255, 16, 100, 68),
+    Color.fromARGB(255, 0, 42, 30),
+  ],
 );
+
+
+// Color(0xFF338771),
+// Color.fromARGB(255, 16, 100, 77),
+// Color.fromARGB(255, 0, 42, 30),

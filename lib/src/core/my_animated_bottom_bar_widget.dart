@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:purus_lern_app/src/config/theme.dart';
 import 'package:rive/rive.dart';
 
-class MyAnimatedBottomAppBar extends StatefulWidget {
-  const MyAnimatedBottomAppBar({
+class MyAnimatedBottomAppBarWidget extends StatefulWidget {
+  const MyAnimatedBottomAppBarWidget({
     super.key,
     required this.currentIndex,
     required this.onTabSelected,
@@ -14,10 +14,10 @@ class MyAnimatedBottomAppBar extends StatefulWidget {
   final ValueChanged<int> onTabSelected;
 
   @override
-  State<MyAnimatedBottomAppBar> createState() => _MyAnimatedBottomAppBarState();
+  State<MyAnimatedBottomAppBarWidget> createState() => _MyAnimatedBottomAppBarWidgetState();
 }
 
-class _MyAnimatedBottomAppBarState extends State<MyAnimatedBottomAppBar> {
+class _MyAnimatedBottomAppBarWidgetState extends State<MyAnimatedBottomAppBarWidget> {
   SMIInput<bool>? _homeInput;
   SMIInput<bool>? _eduInput;
   SMIInput<bool>? _lexiInput;
@@ -33,17 +33,17 @@ class _MyAnimatedBottomAppBarState extends State<MyAnimatedBottomAppBar> {
     _loadRiveFile('assets/animations/home.riv', (artboard, input) {
       _homeArtboard = artboard;
       _homeInput = input;
-      _homeInput!.value = true;
+      _homeInput!.value = false;
     });
     _loadRiveFile('assets/animations/edu.riv', (artboard, input) {
       _eduArtboard = artboard;
       _eduInput = input;
-      _eduInput!.value = true;
+      _eduInput!.value = false;
     });
     _loadRiveFile('assets/animations/lexicon.riv', (artboard, input) {
       _lexiArtboard = artboard;
       _lexiInput = input;
-      _lexiInput!.value = true;
+      _lexiInput!.value = false;
     });
     _loadRiveFile('assets/animations/settings.riv', (artboard, input) {
       _settingsArtboard = artboard;
@@ -84,8 +84,8 @@ class _MyAnimatedBottomAppBarState extends State<MyAnimatedBottomAppBar> {
           BoxShadow(
             color: Color(0x23000000),
             blurRadius: 30,
-            offset: Offset(0, -1),
-            spreadRadius: 5,
+            offset: Offset(0, -2),
+            spreadRadius: 8,
           )
         ],
       ),
