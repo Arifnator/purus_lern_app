@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:purus_lern_app/src/core/my_animated_bottom_bar_widget.dart';
+import 'package:purus_lern_app/src/core/presentation/widgets/my_animated_bottom_bar_widget.dart';
 
 import 'package:purus_lern_app/src/config/theme.dart';
-import 'package:purus_lern_app/src/core/my_animated_top_bar_widget.dart';
+import 'package:purus_lern_app/src/core/presentation/widgets/my_animated_top_bar_widget.dart';
 
 import 'package:purus_lern_app/src/features/mainmenu/presentation/mainmenu_screen.dart';
 import 'package:purus_lern_app/src/features/education_portal/education_screen.dart';

@@ -1,9 +1,13 @@
 // import 'src/core/splash_screen.dart'; -- SplashScreen()
+// import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+// import 'package:window_manager/window_manager.dart';
 // import 'package:flutter/services.dart';
 import 'package:purus_lern_app/src/config/main_config.dart';
-import 'package:purus_lern_app/src/core/home_screen.dart';
-import 'package:purus_lern_app/src/core/splash_screen.dart';
+import 'package:purus_lern_app/src/core/presentation/home_screen.dart';
+import 'package:purus_lern_app/src/config/rive_manager.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/login_faceid_screen.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/login_screen.dart';
 
@@ -14,10 +18,17 @@ import 'package:purus_lern_app/src/features/authentication/presentation/login_sc
 // 3. Angemeldet bleiben
 
 // BOXCONTRAINS
+// rive ohne laden?
+
+// check internet connection? / offline learn??? -- https://www.youtube.com/watch?v=0si2HPnRCuE
 
 // Icons skalierbar!
 // icon & altina shadow effekt
 // ontap effekt
+// minimun size
+// main icon dunkelmodus
+// alles skaliebar?
+// darkmode with splashsreen
 
 Map<String, Widget> authenticationRoutes = {
   "Login": const LoginScreen(),
@@ -25,8 +36,16 @@ Map<String, Widget> authenticationRoutes = {
   'Home': const HomeScreen(),
 };
 
-void main() {
-  const SplashScreen();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // SplashScreen purusGreen:
+  await Future.delayed(const Duration(milliseconds: 500));
+  FlutterNativeSplash.remove();
+
+  // Initialize Rive and load animations
+  await RiveManager().initialize();
+
   runApp(const PurusMain());
 }
 
@@ -59,5 +78,19 @@ class PurusMain extends StatelessWidget {
 // ),
 
 
-
 //     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+
+
+
+
+
+
+  // async
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await windowManager.ensureInitialized();
+
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await windowManager.ensureInitialized();
+  // if (Platform.isMacOS) {
+  //   WindowManager.instance.setMinimumSize(const Size(20, 20));
+  // }
