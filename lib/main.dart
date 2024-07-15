@@ -17,6 +17,14 @@ import 'package:purus_lern_app/src/features/authentication/presentation/login_sc
 // 2. Autologin FaceID
 // 3. Angemeldet bleiben
 
+// BackdropFilter(
+//                         filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+//                         child:
+
+// flutter pub add scaled_app -- runAppScaled
+
+//   smooth_corner: ^1.0.0
+
 // BOXCONTRAINS
 // rive ohne laden?
 
