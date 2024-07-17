@@ -16,6 +16,7 @@ import 'package:purus_lern_app/src/features/authentication/presentation/login_sc
 // 1. First open + onboarding
 // 2. Autologin FaceID
 // 3. Angemeldet bleiben
+// flutter pub add sf_symbols // flutter pub add flutter_sficon
 
 // BackdropFilter(
 //                         filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
@@ -24,6 +25,8 @@ import 'package:purus_lern_app/src/features/authentication/presentation/login_sc
 // flutter pub add scaled_app -- runAppScaled
 
 //   smooth_corner: ^1.0.0
+
+// blur effekte
 
 // BOXCONTRAINS
 // rive ohne laden?
