@@ -16,7 +16,7 @@ import 'package:purus_lern_app/src/features/authentication/presentation/login_sc
 // 1. First open + onboarding
 // 2. Autologin FaceID
 // 3. Angemeldet bleiben
-// flutter pub add sf_symbols // flutter pub add flutter_sficon
+// flutter pub add sf_symbols // flutter pub add flutter_sficon  // flutter pub add drop_shadow_image
 
 // BackdropFilter(
 //                         filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
