@@ -13,6 +13,8 @@ import 'package:purus_lern_app/src/features/authentication/presentation/login_sc
 
 // feature first: https://mobterest.medium.com/mastering-feature-first-architecture-building-scalable-flutter-mobile-apps-5c706b6e42be
 
+// THEMEEEES
+
 // 1. First open + onboarding
 // 2. Autologin FaceID
 // 3. Angemeldet bleiben

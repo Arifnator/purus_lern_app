@@ -31,6 +31,8 @@ class RiveManager {
     settingsInput = _getInput(settingsArtboard, 'State Machine 1', 'status');
   }
 
+  
+
   Future<Artboard> _loadRiveFile(String assetPath) async {
     final data = await rootBundle.load(assetPath);
     final file = RiveFile.import(data);

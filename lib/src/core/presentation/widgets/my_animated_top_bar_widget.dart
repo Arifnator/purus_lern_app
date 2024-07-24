@@ -17,7 +17,7 @@ class MyAnimatedTopBarWidget extends StatelessWidget
       decoration: const BoxDecoration(
           color: Colors.transparent,
           border:
-              Border(bottom: BorderSide(width: 1, color: Color(0x358A8A8E)))),
+              Border(bottom: BorderSide(width: 0.5, color: borderStrokeGrey))),
       child: Column(
         children: [
           const Expanded(
@@ -31,7 +31,7 @@ class MyAnimatedTopBarWidget extends StatelessWidget
               ),
               Material(
                 color: purusGrey,
-                elevation: 10,
+                elevation: 6,
                 shadowColor: Colors.black,
                 clipBehavior: Clip.hardEdge,
                 shape: const CircleBorder(),
@@ -79,5 +79,5 @@ class MyAnimatedTopBarWidget extends StatelessWidget
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(140);
+  Size get preferredSize => const Size.fromHeight(120);
 }
