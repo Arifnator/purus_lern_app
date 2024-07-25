@@ -24,7 +24,7 @@ class _MyAnimatedBottomAppBarWidgetState
   Widget build(BuildContext context) {
     return Container(
       height: 94,
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 21),
+      padding: const EdgeInsets.only(left: 30, right: 30, bottom: 21),
       decoration: const ShapeDecoration(
         gradient: bottomBarGradient,
         shape: RoundedRectangleBorder(

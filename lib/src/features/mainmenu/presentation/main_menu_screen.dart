@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_sficon/flutter_sficon.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
-import 'package:purus_lern_app/src/core/presentation/widgets/menu_cards_widget.dart';
+import 'package:purus_lern_app/widgets/menu_cards_widget.dart';
 import 'package:purus_lern_app/src/data/menu_card_list.dart';
 import 'package:purus_lern_app/src/features/mainmenu/presentation/widgets/preview_video_widget.dart';
 
