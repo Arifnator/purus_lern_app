@@ -18,6 +18,8 @@ import 'package:purus_lern_app/src/core/presentation/splash_screen.dart';
 
 // THEMEEEES
 
+// copy with her yerde oluyor mu?
+
 // 1. First open + onboarding
 // 2. Autologin FaceID
 // 3. Angemeldet bleiben
