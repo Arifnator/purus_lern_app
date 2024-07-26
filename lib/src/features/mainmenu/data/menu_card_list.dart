@@ -1,6 +1,6 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
-import 'package:purus_lern_app/src/domain/menu_card_class.dart';
+import 'package:purus_lern_app/src/features/mainmenu/domain/menu_card_class.dart';
 import 'package:purus_lern_app/src/features/mainmenu/presentation/widgets/my_progress_circle.dart';
 
 List<MenuCardClass> menuItems = [

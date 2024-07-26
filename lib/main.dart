@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:purus_lern_app/src/config/main_config.dart';
 import 'package:purus_lern_app/src/config/rive_manager.dart';
-import 'package:purus_lern_app/src/core/presentation/gradient_animation_screen.dart';
+import 'package:purus_lern_app/src/features/authentication/presentation/splash_gradient_animation.dart';
 // import 'package:rive_splash_screen/rive_splash_screen.dart';
 // import 'package:purus_lern_app/src/core/presentation/onboarding.dart';
 // import 'package:purus_lern_app/src/features/authentication/presentation/login_faceid_screen.dart';
@@ -70,14 +70,8 @@ class PurusMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: appName,
-      home: GradientAnimationScreen(),
+      home: SplashGradientAnimation(),
       debugShowCheckedModeBanner: false,
-      // routes: {
-      //   'Onboarding': (context) => const Onboarding(),
-      //   'Login': (context) => const LoginScreen(),
-      //   'FaceId': (context) => const LoginFaceidScreen(),
-      //   'Home': (context) => const HomeScreen(),
-      // },
     );
   }
 }

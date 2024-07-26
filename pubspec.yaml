@@ -46,6 +46,9 @@ dependencies:
   cupertino_icons: ^1.0.6
   # rive_splash_screen: ^0.1.1
   video_player: ^2.9.1
+  local_auth: ^2.2.0
+  animations: ^2.0.11
+  flutter_inner_shadow: ^0.0.1
 
 dev_dependencies:
   flutter_test:

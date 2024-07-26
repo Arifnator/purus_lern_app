@@ -39,7 +39,7 @@ class _MyAnimatedBottomAppBarWidgetState
             blurRadius: 30,
             offset: Offset(0, -2),
             spreadRadius: 8,
-          )
+          ),
         ],
       ),
       child: Padding(

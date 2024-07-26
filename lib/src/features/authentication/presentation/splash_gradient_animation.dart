@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/config/gradients.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
-import 'package:purus_lern_app/src/core/presentation/splash_screen.dart';
+import 'package:purus_lern_app/src/features/authentication/presentation/splash_screen.dart';
 
-class GradientAnimationScreen extends StatefulWidget {
-  const GradientAnimationScreen({super.key});
+class SplashGradientAnimation extends StatefulWidget {
+  const SplashGradientAnimation({super.key});
 
   @override
-  State<GradientAnimationScreen> createState() =>
-      _GradientAnimationScreenState();
+  State<SplashGradientAnimation> createState() =>
+      _SplashGradientAnimationState();
 }
 
-class _GradientAnimationScreenState extends State<GradientAnimationScreen>
+class _SplashGradientAnimationState extends State<SplashGradientAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController _gradientAnimationController;
   late Animation<double> _animationValue;
@@ -51,14 +51,13 @@ class _GradientAnimationScreenState extends State<GradientAnimationScreen>
         animation: _gradientAnimationController,
         builder: (context, child) {
           return Container(
-            decoration: MyBackgroundGradient(
+              decoration: MyBackgroundGradient(
             colors: [
               Color.lerp(purusGreen, Colors.white, _animationValue.value)!,
               purusGreen,
               Color.lerp(purusGreen, purusDarkGreen, _animationValue.value)!,
             ],
-          ).myBackgroundGradient()
-          );
+          ).myBackgroundGradient());
         },
       ),
     );

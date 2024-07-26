@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const Color purusGreen = Color(0xFF008159);
+const Color purusDarkerGreen = Color.fromARGB(255, 0, 114, 78);
 const Color purusDarkGreen = Color(0xFF003826);
 const Color purusLightGreen = Color.fromARGB(255, 200, 224, 215);
 const Color purusUltralightGreen = Color.fromARGB(255, 229, 246, 240);
