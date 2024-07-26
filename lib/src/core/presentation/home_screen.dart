@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:purus_lern_app/src/config/gradients.dart';
 import 'package:purus_lern_app/widgets/my_animated_bottom_bar_widget.dart';
 
-import 'package:purus_lern_app/src/config/theme.dart';
 import 'package:purus_lern_app/widgets/my_animated_top_bar_widget.dart';
 
 import 'package:purus_lern_app/src/features/mainmenu/presentation/main_menu_screen.dart';
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: backgroundGradient,
+      decoration: MyBackgroundGradient().myBackgroundGradient(),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: const MyAnimatedTopBarWidget(),

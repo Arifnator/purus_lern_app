@@ -36,7 +36,7 @@ dependencies:
   rive: ^0.13.9
   window_manager: ^0.3.9
   flutter_launcher_icons: "^0.13.1"
-  flutter_native_splash: ^2.4.1
+  # flutter_native_splash: ^2.4.1
   hugeicons: ^0.0.5
   flutter_sficon: ^1.1.2
   # import 'package:hugeicons/hugeicons.dart';
