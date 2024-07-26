@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:purus_lern_app/src/config/palette.dart';
 import 'package:purus_lern_app/src/widgets/my_text_button.dart';
 
 class FaceidPlace extends StatefulWidget {
