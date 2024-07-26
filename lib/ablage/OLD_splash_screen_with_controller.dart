@@ -118,3 +118,47 @@
 //     );
 //   }
 // }
+
+
+
+
+
+  // late StateMachineController _stateMachineController;
+  // late RiveAnimationController _riveAnimationController;
+
+
+  // void _onRiveInit(Artboard artboard) {
+  //   final controller = StateMachineController.fromArtboard(
+  //     artboard,
+  //     'State Machine 1', // Replace with your actual state machine name
+  //   );
+
+  //   if (controller != null) {
+  //     artboard.addController(controller);
+  //     _stateMachineController = controller;
+
+  //     // Initialize the RiveAnimationController
+  //     _riveAnimationController =
+  //         SimpleAnimation('animation'); // Replace with your animation name
+  //     artboard.addController(_riveAnimationController);
+
+  //     // Transition to static state after animation completion
+  //     final animationInput = _stateMachineController.findInput(
+  //         'animation'); // Replace with the name of the input controlling your animation
+  //     final staticInput = _stateMachineController.findInput(
+  //         'static'); // Replace with the name of your static state input
+
+  //     // Set a timeout or use another method to transition after animation
+  //     Future.delayed(const Duration(seconds: 4), () {
+  //       // Adjust the duration based on your animation length
+  //       if (staticInput != null) {
+  //         staticInput.change(1.0); // Transition to the static state
+  //       }
+  //     });
+  //   }
+  // }
+
+  // RiveAnimation.asset(
+  //                 'assets/animations/splash_animation.riv',
+  //                 onInit: _onRiveInit,
+  //               ),

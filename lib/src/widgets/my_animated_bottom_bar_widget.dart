@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:purus_lern_app/src/config/gradients.dart';
 import 'package:purus_lern_app/src/config/rive_manager.dart';
 import 'package:rive/rive.dart';
-import 'package:purus_lern_app/src/config/theme.dart';
 
 class MyAnimatedBottomAppBarWidget extends StatefulWidget {
   const MyAnimatedBottomAppBarWidget({
@@ -39,7 +39,7 @@ class _MyAnimatedBottomAppBarWidgetState
             blurRadius: 30,
             offset: Offset(0, -2),
             spreadRadius: 8,
-          )
+          ),
         ],
       ),
       child: Padding(

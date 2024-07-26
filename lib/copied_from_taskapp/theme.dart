@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:purus_lern_app/src/config/copied_from_taskapp/palette.dart';
+import 'package:purus_lern_app/copied_from_taskapp/palette.dart';
 
 
 ThemeData themeData(

@@ -2,14 +2,14 @@
 // import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 // import 'package:purus_lern_app/ablage/tween_home.dart';
 // import 'package:window_manager/window_manager.dart';
 // import 'package:flutter/services.dart';
 import 'package:purus_lern_app/src/config/main_config.dart';
 import 'package:purus_lern_app/src/config/rive_manager.dart';
+import 'package:purus_lern_app/src/features/authentication/presentation/splash_gradient_animation.dart';
 // import 'package:rive_splash_screen/rive_splash_screen.dart';
-import 'package:purus_lern_app/src/core/presentation/splash_screen.dart';
 // import 'package:purus_lern_app/src/core/presentation/onboarding.dart';
 // import 'package:purus_lern_app/src/features/authentication/presentation/login_faceid_screen.dart';
 // import 'package:purus_lern_app/src/features/authentication/presentation/login_screen.dart';
@@ -17,6 +17,8 @@ import 'package:purus_lern_app/src/core/presentation/splash_screen.dart';
 // feature first: https://mobterest.medium.com/mastering-feature-first-architecture-building-scalable-flutter-mobile-apps-5c706b6e42be
 
 // THEMEEEES
+
+// bottombar gradient animation
 
 // copy with her yerde oluyor mu?
 
@@ -51,9 +53,9 @@ import 'package:purus_lern_app/src/core/presentation/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // SplashScreen purusGreen:
-  await Future.delayed(const Duration(milliseconds: 500));
-  FlutterNativeSplash.remove();
+  // // SplashScreen purusGreen:
+  // await Future.delayed(const Duration(milliseconds: 500));
+  // FlutterNativeSplash.remove();
 
   // Initialize Rive and load animations
   await RiveManager().initialize();
@@ -68,14 +70,8 @@ class PurusMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: appName,
-      home: SplashScreen(),
+      home: SplashGradientAnimation(),
       debugShowCheckedModeBanner: false,
-      // routes: {
-      //   'Onboarding': (context) => const Onboarding(),
-      //   'Login': (context) => const LoginScreen(),
-      //   'FaceId': (context) => const LoginFaceidScreen(),
-      //   'Home': (context) => const HomeScreen(),
-      // },
     );
   }
 }

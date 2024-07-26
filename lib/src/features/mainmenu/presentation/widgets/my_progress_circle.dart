@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
-import 'package:purus_lern_app/src/core/application/progress.dart';
+import 'package:purus_lern_app/src/features/mainmenu/data/progress.dart';
 
 class MyProgressCircle extends StatefulWidget {
   const MyProgressCircle({
