@@ -102,60 +102,66 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: MyBackgroundGradient().myBackgroundGradient(),
-      child: Stack(
-        children: [
-          const SplashBubblesBackground(),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Center(
-              child: Column(
-                children: [
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                  const Expanded(
-                    flex: 3,
-                    child: SizedBox(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30.0),
-                        child: RiveAnimation.asset(
-                          'assets/animations/splash_animation_shadow.riv',
-                          fit: BoxFit.contain,
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Container(
+        decoration: MyBackgroundGradient().myBackgroundGradient(),
+        child: Stack(
+          children: [
+            const SplashBubblesBackground(),
+            Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Center(
+                child: Column(
+                  children: [
+                    const Expanded(
+                      flex: 1,
+                      child: SizedBox(),
+                    ),
+                    const Expanded(
+                      flex: 3,
+                      child: SizedBox(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30.0),
+                          child: RiveAnimation.asset(
+                            'assets/animations/splash_animation_shadow.riv',
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 7,
-                    child: SizedBox(
-                      child: ValueListenableBuilder(
-                        valueListenable: placeRouteNotifier,
-                        builder: (context, route, _) {
-                          return AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 300),
-                            switchInCurve: Curves.easeIn,
-                            switchOutCurve: Curves.easeOut,
-                            transitionBuilder:
-                                (Widget child, Animation<double> animation) {
-                              return FadeTransition(
-                                  opacity: animation, child: child);
-                            },
-                            child: route.isEmpty
-                                ? const SizedBox()
-                                : authenticationRoutes[route],
-                          );
-                        },
+                    Expanded(
+                      flex: 7,
+                      child: SizedBox(
+                        child: ValueListenableBuilder(
+                          valueListenable: placeRouteNotifier,
+                          builder: (context, route, _) {
+                            return AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              switchInCurve: Curves.easeIn,
+                              switchOutCurve: Curves.easeOut,
+                              transitionBuilder:
+                                  (Widget child, Animation<double> animation) {
+                                return FadeTransition(
+                                    opacity: animation, child: child);
+                              },
+                              child: route.isEmpty
+                                  ? const SizedBox()
+                                  : authenticationRoutes[route],
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
