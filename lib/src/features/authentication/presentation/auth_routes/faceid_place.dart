@@ -51,7 +51,7 @@ class _FaceidPlaceState extends State<FaceidPlace>
             child: ScaleTransition(
               scale: _scaleAnimation,
               child: SizedBox(
-                height: 140,
+                height: 160,
                 child: Image.asset("assets/images/FaceID.png"),
               ),
             ),

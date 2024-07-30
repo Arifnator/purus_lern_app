@@ -113,6 +113,7 @@ class _SplashScreenState extends State<SplashScreen>
           children: [
             const SplashBubblesBackground(),
             Scaffold(
+              // resizeToAvoidBottomInset: false,
               backgroundColor: Colors.transparent,
               body: Center(
                 child: Column(
