@@ -11,3 +11,5 @@ const Color purusGrey = Color(0xFF8A8A8E);
 const Color purusDarkGrey = Color(0xFF646363);
 
 const Color borderStrokeGrey = Color.fromARGB(255, 210, 210, 210);
+
+const Color purusRed = Color(0xFFC83435);

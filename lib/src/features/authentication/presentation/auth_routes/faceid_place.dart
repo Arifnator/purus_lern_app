@@ -44,11 +44,16 @@ class _FaceidPlaceState extends State<FaceidPlace>
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const SizedBox(height: 30),
-          ScaleTransition(
-            scale: _scaleAnimation,
-            child: SizedBox(
-              height: 140,
-              child: Image.asset("assets/images/FaceID.png"),
+          GestureDetector(
+            onTap: () {
+              showDialog(context: context, builder: (context) => Dialog());
+            },
+            child: ScaleTransition(
+              scale: _scaleAnimation,
+              child: SizedBox(
+                height: 160,
+                child: Image.asset("assets/images/FaceID.png"),
+              ),
             ),
           ),
           MyTextButton(
