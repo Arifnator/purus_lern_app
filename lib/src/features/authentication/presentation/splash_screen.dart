@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/config/gradients.dart';
+import 'package:purus_lern_app/src/config/rive_manager.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/forgot_password_place.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/registration_confirm_place.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/registration_place.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/splash_bubbles_background.dart';
+import 'package:purus_lern_app/src/widgets/my_animated_bottom_bar_widget.dart';
 import 'package:rive/rive.dart';
 import 'package:purus_lern_app/src/core/presentation/home_screen.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/onboarding_place.dart';
@@ -30,7 +32,62 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
 
     authenticationRoutes = {
-      'Onboarding': OnboardingPlace(transitionToRoute: _transitionToRoute),
+      'Onboarding': OnboardingPlace(
+        transitionToRoute: _transitionToRoute,
+        pages: [
+          OnboardingPlaceModel(
+            title: 'Test Onboarding 1',
+            description:
+                'Hier kommt der Onboarding Text. Hier kommt der Onboarding Text. Hier kommt der Onboarding Text.',
+            content: MyBottomAppBarItem(
+              artboard: RiveManager().homeArtboard,
+              currentIndex: 0,
+              tabIndex: 0,
+              input: RiveManager().homeInput,
+              cb: () {},
+            ),
+            bgColor: Colors.transparent,
+          ),
+          OnboardingPlaceModel(
+              title: 'Test Onboarding 2',
+              description:
+                  'Hier kommt der Onboarding Text. Hier kommt der Onboarding Text. Hier kommt der Onboarding Text.',
+              content: MyBottomAppBarItem(
+                artboard: RiveManager().eduArtboard,
+                currentIndex: 0,
+                tabIndex: 0,
+                input: RiveManager().eduInput,
+                cb: () {},
+              ),
+              bgColor: Colors.transparent),
+          OnboardingPlaceModel(
+            title: 'Test Onboarding 3',
+            description:
+                'Hier kommt der Onboarding Text. Hier kommt der Onboarding Text. Hier kommt der Onboarding Text.',
+            content: MyBottomAppBarItem(
+              artboard: RiveManager().lexiArtboard,
+              currentIndex: 0,
+              tabIndex: 0,
+              input: RiveManager().lexiInput,
+              cb: () {},
+            ),
+            bgColor: Colors.transparent,
+          ),
+          OnboardingPlaceModel(
+            title: 'Test Onboarding 4',
+            description:
+                'Hier kommt der Onboarding Text. Hier kommt der Onboarding Text. Hier kommt der Onboarding Text.',
+            content: MyBottomAppBarItem(
+              artboard: RiveManager().settingsArtboard,
+              currentIndex: 0,
+              tabIndex: 0,
+              input: RiveManager().settingsInput,
+              cb: () {},
+            ),
+            bgColor: Colors.transparent,
+          ),
+        ],
+      ),
       'FaceId': FaceidPlace(transitionToRoute: _transitionToRoute),
       'Login': LoginPlace(transitionToRoute: _transitionToRoute),
       'ForgotPassword':

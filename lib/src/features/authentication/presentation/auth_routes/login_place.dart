@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sficon/flutter_sficon.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
+import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:purus_lern_app/src/widgets/my_button.dart';
 import 'package:purus_lern_app/src/widgets/my_textfield.dart';
 
@@ -331,38 +332,43 @@ class _LoginPlaceState extends State<LoginPlace>
                     height: _columnSpacing,
                   ),
                   // if (!isKeyboardVisible)
-                  GestureDetector(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => const Dialog());
-                    },
-                    child: Stack(
-                      children: [
-                        ScaleTransition(
-                          scale: _scaleAnimation,
-                          child: SizedBox(
-                            height: 90,
-                            child: Image.asset("assets/images/FaceID.png"),
-                          ),
-                        ),
-                        const Positioned(
-                          bottom: 7,
-                          left: 23,
-                          child: SizedBox(
-                            child: Text(
-                              "Face ID",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
+                  isFaceIdAvailable
+                      ? GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => const Dialog());
+                          },
+                          child: Stack(
+                            children: [
+                              ScaleTransition(
+                                scale: _scaleAnimation,
+                                child: SizedBox(
+                                  height: 90,
+                                  child:
+                                      Image.asset("assets/images/FaceID.png"),
+                                ),
                               ),
-                            ),
+                              const Positioned(
+                                bottom: 7,
+                                left: 23,
+                                child: SizedBox(
+                                  child: Text(
+                                    "Face ID",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         )
-                      ],
-                    ),
-                  ),
+                      : const SizedBox(
+                          height: 90,
+                        ),
                   const SizedBox(
                     height: 10,
                   )
