@@ -9,10 +9,12 @@ import 'package:purus_lern_app/src/widgets/my_textfield.dart';
 // https://docs.flutter.dev/cookbook/forms/validation
 // scrollbar und flex
 // alle fehler
+// falxhce eingaben rot
 // gesture detecotr keyborad + anmelden cakisiyor
 // unfocus on button2
 // back button passw forgot and reg all
 // sozial login???
+// angemeldet bleiben sharedpref?
 // bei registrieren soll email mitgegeben werden
 
 class LoginPlace extends StatefulWidget {
@@ -25,7 +27,7 @@ class LoginPlace extends StatefulWidget {
 
 class _LoginPlaceState extends State<LoginPlace>
     with SingleTickerProviderStateMixin {
-  double columSpacing = 20;
+  final double _columnSpacing = 20;
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
@@ -38,20 +40,20 @@ class _LoginPlaceState extends State<LoginPlace>
   bool isUsernameValid = false;
   bool isPasswordCorrect = false;
 
-  String alertText = "Bitte melden Sie sich an.";
-  Color alertTextColor = purusGrey;
+  String _alertText = "Bitte melden Sie sich an.";
+  Color _alertTextColor = Colors.white;
 
-  void _alertTextUpdate() {
+  void __alertTextUpdate() {
     if (!isUsernameValid) {
       setState(() {
-        alertText = "Benutzername oder E-Mail nicht gefunden.";
-        alertTextColor = purusRed;
+        _alertText = "Benutzername oder E-Mail nicht gefunden.";
+        _alertTextColor = purusRed;
       });
     } else if (isUsernameValid && !isPasswordCorrect) {
       setState(() {
-        alertText =
+        _alertText =
             "Falsches Passwort. Probieren Sie es erneut, oder setzen Sie Ihr Passwort zurück.";
-        alertTextColor = purusRed;
+        _alertTextColor = purusRed;
       });
     }
   }
@@ -119,19 +121,22 @@ class _LoginPlaceState extends State<LoginPlace>
               child: Column(
                 children: [
                   SizedBox(
-                    child: Text(
-                      alertText,
-                      overflow: TextOverflow.fade,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: alertTextColor,
+                    height: 45,
+                    child: Center(
+                      child: Text(
+                        _alertText,
+                        overflow: TextOverflow.fade,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: _alertTextColor,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: columSpacing,
+                    height: _columnSpacing,
                   ),
                   MyTextfield(
                     controller: usernameController,
@@ -145,7 +150,7 @@ class _LoginPlaceState extends State<LoginPlace>
                     },
                   ),
                   SizedBox(
-                    height: columSpacing,
+                    height: _columnSpacing,
                   ),
                   MyTextfield(
                     controller: passwordController,
@@ -175,7 +180,7 @@ class _LoginPlaceState extends State<LoginPlace>
                     textInputAction: TextInputAction.done,
                     // maxLength: 20,
                     onSubmitted: (p0) {
-                      // anmelden triggern
+                      __alertTextUpdate();
                     },
                     // validator: (value) {
                     //   if (value == null || value.isEmpty) {
@@ -185,7 +190,7 @@ class _LoginPlaceState extends State<LoginPlace>
                     // },
                   ),
                   SizedBox(
-                    height: columSpacing,
+                    height: _columnSpacing,
                   ),
                   SizedBox(
                     child: Row(
@@ -250,11 +255,11 @@ class _LoginPlaceState extends State<LoginPlace>
                     ),
                   ),
                   SizedBox(
-                    height: columSpacing,
+                    height: _columnSpacing,
                   ),
                   MyButton(
                     onTap: () {
-                      _alertTextUpdate();
+                      __alertTextUpdate();
                       FocusManager.instance.primaryFocus?.unfocus();
                       // if (_formKey.currentState!.validate()) {
 
@@ -279,7 +284,7 @@ class _LoginPlaceState extends State<LoginPlace>
                     text: "Anmelden",
                   ),
                   SizedBox(
-                    height: columSpacing,
+                    height: _columnSpacing,
                   ),
                   Row(
                     children: <Widget>[
@@ -310,7 +315,7 @@ class _LoginPlaceState extends State<LoginPlace>
                     ],
                   ),
                   SizedBox(
-                    height: columSpacing,
+                    height: _columnSpacing,
                   ),
                   MyButton(
                     onTap: () {
@@ -323,7 +328,7 @@ class _LoginPlaceState extends State<LoginPlace>
                     strokeColor: borderStrokeGrey,
                   ),
                   SizedBox(
-                    height: columSpacing,
+                    height: _columnSpacing,
                   ),
                   // if (!isKeyboardVisible)
                   GestureDetector(

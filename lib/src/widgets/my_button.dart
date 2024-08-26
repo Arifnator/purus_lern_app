@@ -10,6 +10,7 @@ class MyButton extends StatefulWidget {
     required this.text,
     this.buttonHeight = 53.0,
     this.buttonWidth = 340.0,
+    this.fontSize = 21,
     this.textColor = Colors.white,
     this.bgColor = purusDarkerGreen,
     this.strokeColor = purusGreen,
@@ -20,6 +21,7 @@ class MyButton extends StatefulWidget {
   final String text;
   final double buttonWidth;
   final double buttonHeight;
+  final double fontSize;
   final Color textColor;
   final Color bgColor;
   final Color strokeColor;
@@ -71,7 +73,7 @@ class _MyButtonState extends State<MyButton> {
             color: widget.bgColor,
             shape: RoundedRectangleBorder(
               side: BorderSide(
-                width: 0.5,
+                width: 0.0,
                 strokeAlign: BorderSide.strokeAlignInside,
                 color: widget.strokeColor,
               ),
@@ -123,7 +125,7 @@ class _MyButtonState extends State<MyButton> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: widget.textColor,
-                      fontSize: 21,
+                      fontSize: widget.fontSize,
                       letterSpacing: 0,
                       fontWeight: FontWeight.w500,
                       shadows: [

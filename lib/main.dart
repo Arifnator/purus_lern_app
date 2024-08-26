@@ -48,6 +48,7 @@ import 'package:purus_lern_app/src/features/authentication/presentation/splash_g
 // ontap effekt
 // minimun size
 // main icon dunkelmodus
+// tüm snackbbar fln ios androit yap
 // alles skaliebar?
 // darkmode with splashsreen
 
