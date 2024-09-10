@@ -88,6 +88,8 @@ class _OnboardingPlaceState extends State<OnboardingPlace> {
               },
             ),
           ),
+
+          // slidable nasil oldu? yap +++++++ wetter app gibi unten die punkte
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: widget.pages

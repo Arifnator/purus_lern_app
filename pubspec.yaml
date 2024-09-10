@@ -49,6 +49,7 @@ dependencies:
   local_auth: ^2.2.0
   animations: ^2.0.11
   flutter_inner_shadow: ^0.0.1
+  firebase_core: ^2.24.2
 
 dev_dependencies:
   flutter_test:
