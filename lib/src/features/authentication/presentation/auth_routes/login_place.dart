@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sficon/flutter_sficon.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
+import 'package:purus_lern_app/src/core/firebase_analytics/log_errors.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:purus_lern_app/src/widgets/my_button.dart';
 import 'package:purus_lern_app/src/widgets/my_textfield.dart';
@@ -50,12 +51,14 @@ class _LoginPlaceState extends State<LoginPlace>
         _alertText = "Benutzername oder E-Mail nicht gefunden.";
         _alertTextColor = purusRed;
       });
+      logErrors(_alertText);
     } else if (isUsernameValid && !isPasswordCorrect) {
       setState(() {
         _alertText =
             "Falsches Passwort. Probieren Sie es erneut, oder setzen Sie Ihr Passwort zurück.";
         _alertTextColor = purusRed;
       });
+      logErrors(_alertText);
     }
   }
 

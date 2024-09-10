@@ -2,20 +2,25 @@
 // import 'dart:io';
 
 import 'package:flutter/material.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:purus_lern_app/firebase_options.dart';
+
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 // import 'package:purus_lern_app/ablage/tween_home.dart';
 // import 'package:window_manager/window_manager.dart';
 // import 'package:flutter/services.dart';
+
 import 'package:purus_lern_app/src/config/main_config.dart';
-import 'package:purus_lern_app/src/config/rive_manager.dart';
+import 'package:purus_lern_app/src/core/presentation/rive_manager.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/splash_gradient_animation.dart';
+
 // import 'package:rive_splash_screen/rive_splash_screen.dart';
 // import 'package:purus_lern_app/src/core/presentation/onboarding.dart';
 // import 'package:purus_lern_app/src/features/authentication/presentation/login_faceid_screen.dart';
 // import 'package:purus_lern_app/src/features/authentication/presentation/login_screen.dart';
 
 // feature first: https://mobterest.medium.com/mastering-feature-first-architecture-building-scalable-flutter-mobile-apps-5c706b6e42be
-
 
 // THEMEEEES
 
@@ -36,6 +41,8 @@ import 'package:purus_lern_app/src/features/authentication/presentation/splash_g
 
 //   smooth_corner: ^1.0.0
 
+// macos in firebase ekle
+
 // blur effekte
 
 // BOXCONTRAINS
@@ -54,7 +61,11 @@ import 'package:purus_lern_app/src/features/authentication/presentation/splash_g
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
+  WidgetsFlutterBinding.ensureInitialized();
   // // SplashScreen purusGreen:
   // await Future.delayed(const Duration(milliseconds: 500));
   // FlutterNativeSplash.remove();

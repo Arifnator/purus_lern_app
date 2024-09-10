@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/config/gradients.dart';
-import 'package:purus_lern_app/src/config/rive_manager.dart';
+import 'package:purus_lern_app/src/core/presentation/rive_manager.dart';
+import 'package:purus_lern_app/src/core/firebase_analytics/log_app_start_event.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/forgot_password_place.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/registration_confirm_place.dart';
@@ -12,6 +13,7 @@ import 'package:purus_lern_app/src/core/presentation/home_screen.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/onboarding_place.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/faceid_place.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/login_place.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,9 +29,12 @@ class _SplashScreenState extends State<SplashScreen>
   ValueNotifier<String> placeRouteNotifier = ValueNotifier<String>("");
   late Map<String, Widget> authenticationRoutes;
 
+
+
   @override
   void initState() {
     super.initState();
+    logAppStartEvent();
 
     authenticationRoutes = {
       'Onboarding': OnboardingPlace(

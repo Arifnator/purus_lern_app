@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:purus_lern_app/src/core/firebase_analytics/log_onboarding_done_or_skiped.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 
 class OnboardingPlaceModel {
@@ -89,7 +90,7 @@ class _OnboardingPlaceState extends State<OnboardingPlace> {
             ),
           ),
 
-          // slidable nasil oldu? yap +++++++ wetter app gibi unten die punkte
+          // slidable nasil oldu? yap +++++++ wetter app gibi unten die punkte +++ sharedpref ekle!!!
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: widget.pages
@@ -116,6 +117,7 @@ class _OnboardingPlaceState extends State<OnboardingPlace> {
                   TextButton(
                       onPressed: () {
                         isOnboardingNotComplete = false;
+                        logOnboardingSkipped();
                         if (isFaceIdAvailable) {
                           widget.transitionToRoute('FaceId');
                         } else {
@@ -129,6 +131,8 @@ class _OnboardingPlaceState extends State<OnboardingPlace> {
                   TextButton(
                     onPressed: () {
                       if (_currentPage == widget.pages.length - 1) {
+                        isOnboardingNotComplete = true;
+                        logOnboardingDone();
                         if (isFaceIdAvailable) {
                           widget.transitionToRoute('FaceId');
                         } else {
