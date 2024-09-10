@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sficon/flutter_sficon.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
-import 'package:purus_lern_app/src/core/firebase_analytics/log_errors.dart';
+import 'package:purus_lern_app/src/features/authentication/data/log_errors.dart';
+import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_login.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:purus_lern_app/src/widgets/my_button.dart';
 import 'package:purus_lern_app/src/widgets/my_textfield.dart';
@@ -45,7 +46,7 @@ class _LoginPlaceState extends State<LoginPlace>
   String _alertText = "Bitte melden Sie sich an.";
   Color _alertTextColor = Colors.white;
 
-  void __alertTextUpdate() {
+  void _alertTextUpdate() {
     if (!isUsernameValid) {
       setState(() {
         _alertText = "Benutzername oder E-Mail nicht gefunden.";
@@ -184,7 +185,13 @@ class _LoginPlaceState extends State<LoginPlace>
                     textInputAction: TextInputAction.done,
                     // maxLength: 20,
                     onSubmitted: (p0) {
-                      __alertTextUpdate();
+                      _alertTextUpdate();
+
+                      if (true) {
+                        logLogin(usernameController.text.contains('@')
+                            ? "email"
+                            : "username");
+                      }
                     },
                     // validator: (value) {
                     //   if (value == null || value.isEmpty) {
@@ -263,7 +270,7 @@ class _LoginPlaceState extends State<LoginPlace>
                   ),
                   MyButton(
                     onTap: () {
-                      __alertTextUpdate();
+                      _alertTextUpdate();
                       FocusManager.instance.primaryFocus?.unfocus();
                       // if (_formKey.currentState!.validate()) {
 

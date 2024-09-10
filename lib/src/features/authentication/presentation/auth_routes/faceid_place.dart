@@ -46,7 +46,8 @@ class _FaceidPlaceState extends State<FaceidPlace>
           const SizedBox(height: 30),
           GestureDetector(
             onTap: () {
-              showDialog(context: context, builder: (context) => Dialog());
+              showDialog(
+                  context: context, builder: (context) => const Dialog());
             },
             child: ScaleTransition(
               scale: _scaleAnimation,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:purus_lern_app/src/core/firebase_analytics/log_onboarding_done_or_skiped.dart';
+import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_onboarding_done_or_skiped.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 
 class OnboardingPlaceModel {

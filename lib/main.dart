@@ -1,6 +1,9 @@
 // import 'src/core/splash_screen.dart'; -- SplashScreen()
 // import 'dart:io';
 
+import 'dart:ui';
+
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +15,7 @@ import 'package:purus_lern_app/firebase_options.dart';
 // import 'package:flutter/services.dart';
 
 import 'package:purus_lern_app/src/config/main_config.dart';
+import 'package:purus_lern_app/src/core/firebase/initialize_firebase.dart';
 import 'package:purus_lern_app/src/core/presentation/rive_manager.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/splash_gradient_animation.dart';
 
@@ -60,10 +64,7 @@ import 'package:purus_lern_app/src/features/authentication/presentation/splash_g
 // darkmode with splashsreen
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await initializeFirebase();
 
   WidgetsFlutterBinding.ensureInitialized();
   // // SplashScreen purusGreen:

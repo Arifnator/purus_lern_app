@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
-import 'package:purus_lern_app/src/core/firebase_analytics/log_errors.dart';
+import 'package:purus_lern_app/src/features/authentication/data/log_errors.dart';
 import 'package:purus_lern_app/src/widgets/my_button.dart';
 import 'package:purus_lern_app/src/widgets/my_textfield.dart';
 
