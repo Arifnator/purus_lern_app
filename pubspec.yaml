@@ -49,10 +49,15 @@ dependencies:
   local_auth: ^2.2.0
   animations: ^2.0.11
   flutter_inner_shadow: ^0.0.1
+
   firebase_core: ^2.24.2
   firebase_analytics: ^10.10.7
   firebase_crashlytics: ^3.5.7
   cloud_firestore: ^4.0.0
+  image_picker: ^1.1.2
+  firebase_storage: ^11.6.5
+  shared_preferences: ^2.3.2
+
   # platform: ^3.1.5
 
 dev_dependencies:
