@@ -12,7 +12,7 @@ class MyProgressCircle extends StatefulWidget {
 }
 
 class _MyProgressCircleState extends State<MyProgressCircle>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late AnimationController controller;
 
   @override
@@ -32,11 +32,11 @@ class _MyProgressCircleState extends State<MyProgressCircle>
     });
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   controller.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

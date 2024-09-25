@@ -4,6 +4,7 @@ import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_tried_sk
 import 'package:purus_lern_app/src/core/presentation/rive_manager.dart';
 import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_app_start_event.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
+import 'package:purus_lern_app/src/features/authentication/domain/onboarding_place_model.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/forgot_password_place.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/registration_confirm_place.dart';
 import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/registration_place.dart';

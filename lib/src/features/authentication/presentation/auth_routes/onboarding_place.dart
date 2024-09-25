@@ -1,23 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_onboarding_done_or_skiped.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
+import 'package:purus_lern_app/src/features/authentication/domain/onboarding_place_model.dart';
 
-class OnboardingPlaceModel {
-  final String title;
-  final String description;
-  final Widget content;
-  final Color bgColor;
-  final Color textColor;
-
-  OnboardingPlaceModel(
-      {required this.title,
-      required this.description,
-      required this.content,
-      this.bgColor = Colors.blue,
-      this.textColor = Colors.white});
-}
-
-// ---- Onboarding Place ----
+// optionel onboardign button
+// slidable nasil oldu? yap / WETTER APP GIBI +++ sharedpref ekle!!! +++ parent fehler flex
 
 class OnboardingPlace extends StatefulWidget {
   const OnboardingPlace(
@@ -89,8 +76,6 @@ class _OnboardingPlaceState extends State<OnboardingPlace> {
               },
             ),
           ),
-
-          // slidable nasil oldu? yap +++++++ wetter app gibi unten die punkte +++ sharedpref ekle!!!
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: widget.pages

@@ -5,6 +5,9 @@ import 'package:purus_lern_app/src/widgets/menu_cards_widget.dart';
 import 'package:purus_lern_app/src/features/mainmenu/data/menu_card_list.dart';
 import 'package:purus_lern_app/src/features/mainmenu/presentation/widgets/preview_video_widget.dart';
 
+// beide widgets scrollable
+// größenapassung!
+
 class MainmenuScreen extends StatelessWidget {
   const MainmenuScreen({super.key});
 
@@ -18,7 +21,7 @@ class MainmenuScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 12.0, left: 12, right: 12),
             child: MenuCardsWidget(
-              // onTap: () {},
+              onTap: () {},
               width: double.infinity,
               padding: 5,
               title: "Lernvideo fortsetzen / nächstes Lernvideo",

@@ -6,7 +6,6 @@ import 'package:purus_lern_app/src/config/theme.dart';
 // labeltext conflict with container
 // textstyle
 // sizeeee
-// initialvalue for users remember me?
 
 class MyTextfield extends StatelessWidget {
   const MyTextfield({
