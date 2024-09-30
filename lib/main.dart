@@ -24,6 +24,8 @@ import 'package:purus_lern_app/src/features/authentication/presentation/splash_g
 
 // bottombar gradient animation
 
+// PAsswort ändern funktinn
+
 // copy with her yerde oluyor mu?
 
 // CHeckbox widget

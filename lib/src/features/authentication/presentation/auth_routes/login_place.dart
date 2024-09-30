@@ -12,7 +12,7 @@ import "package:purus_lern_app/src/widgets/my_textfield.dart";
 // iki parca acilsin???
 // FADEIN ROUTE OLMUYORRRRRR
 // TRIM NEDEN OKMUYOR===
-// https://docs.flutter.dev/cookbook/forms/validation
+// https://docs.flutter.dev/cookbook/forms/_validation
 // scrollbar und flex
 // alle fehler
 // möchtne sie faceid nutzen olayi=
@@ -37,16 +37,19 @@ class LoginPlace extends StatefulWidget {
 class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
   final double _columnSpacing = 20;
 
+  final FocusNode _usernameNode = FocusNode();
+  final FocusNode _passwordNode = FocusNode();
+
   // final _formKey = GlobalKey<FormState>();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  bool obscureText = true;
+  bool _obscureText = true;
 
-  bool stayLoggedBox = false;
+  bool _stayLoggedBox = false;
 
-  bool isUsernameValid = false;
-  bool isPasswordCorrect = false;
+  bool _isUsernameValid = false;
+  bool _isPasswordCorrect = false;
 
   String _alertText = "Bitte melden Sie sich an.";
   Color _alertTextColor = Colors.white;
@@ -83,30 +86,34 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
         Tween<double>(begin: 1.0, end: 0.0).animate(_routeAnimationController);
   }
 
-  IconData showHideIcon() {
-    return obscureText ? SFIcons.sf_eye_fill : SFIcons.sf_eye_slash_fill;
+  IconData _showHideIcon() {
+    return _obscureText ? SFIcons.sf_eye_fill : SFIcons.sf_eye_slash_fill;
   }
 
-  void validation() {
+  void _validation() {
     // setState(() {
-    usernameController.text.trimLeft().trimRight();
+    _usernameController.text.trimLeft().trimRight();
     // });
 
-    if (usernameController.text == "admin") {
-      isUsernameValid = true;
-      if (passwordController.text == "0000") {
-        isPasswordCorrect = true;
+    if (_usernameController.text == "admin") {
+      _isUsernameValid = true;
+      if (_passwordController.text == "0000") {
+        _isPasswordCorrect = true;
       }
     }
 
     _alertTextAndTextfieldStrokeUpdate();
     FocusManager.instance.primaryFocus?.unfocus();
 
-    if (isUsernameValid && isPasswordCorrect) {
-      logLogin(usernameController.text.contains("@") ? "email" : "username");
-      //       ScaffoldMessenger.of(context).showSnackBar(
+    if (_isUsernameValid && _isPasswordCorrect) {
+      logLogin(_usernameController.text.contains("@") ? "email" : "username");
+      // ScaffoldMessenger.of(context).showSnackBar(
       //   const SnackBar(content: Text("Erfolgreich Angemeldet")),
       // );
+
+      if (_stayLoggedBox) {
+        isLoggedIn = true;
+      }
 
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
@@ -126,16 +133,16 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
   }
 
   void _alertTextAndTextfieldStrokeUpdate() {
-    if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
+    if (_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
         _alertText = "Fehlende Eingaben";
         _alertTextColor = purusRed;
-        if (usernameController.text.isEmpty) {
+        if (_usernameController.text.isEmpty) {
           _myTextfieldUsernameStrokeColor = purusRed;
         } else {
           _myTextfieldUsernameStrokeColor = purusGrey;
         }
-        if (passwordController.text.isEmpty) {
+        if (_passwordController.text.isEmpty) {
           _myTextfieldPassswordStrokeColor = purusRed;
         } else {
           _myTextfieldPassswordStrokeColor = purusGrey;
@@ -143,7 +150,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
       });
       logErrors(_alertText);
     } else {
-      if (!isUsernameValid) {
+      if (!_isUsernameValid) {
         setState(() {
           _alertText = "Benutzername oder E-Mail nicht gefunden.";
           _alertTextColor = purusRed;
@@ -151,7 +158,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
           _myTextfieldPassswordStrokeColor = purusGrey;
         });
         logErrors(_alertText);
-      } else if (isUsernameValid && !isPasswordCorrect) {
+      } else if (_isUsernameValid && !_isPasswordCorrect) {
         setState(() {
           _alertText =
               "Falsches Passwort. Probieren Sie es erneut, oder setzen Sie Ihr Passwort zurück.";
@@ -160,11 +167,13 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
           _myTextfieldPassswordStrokeColor = purusRed;
         });
         logErrors(_alertText);
-      } else if (isUsernameValid && isPasswordCorrect) {
-        _alertText = "Erfolgreich Angemeldet.";
-        _alertTextColor = purusDarkGrey;
-        _myTextfieldUsernameStrokeColor = purusGrey;
-        _myTextfieldPassswordStrokeColor = purusGrey;
+      } else if (_isUsernameValid && _isPasswordCorrect) {
+        setState(() {
+          _alertText = "Erfolgreich Angemeldet.";
+          _alertTextColor = Colors.white;
+          _myTextfieldUsernameStrokeColor = purusGrey;
+          _myTextfieldPassswordStrokeColor = purusGrey;
+        });
       }
     }
   }
@@ -173,14 +182,13 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
   void dispose() {
     _animationController.dispose();
     _routeAnimationController.dispose();
+    _usernameNode.dispose();
+    _passwordNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    FocusNode nodeOne = FocusNode();
-    FocusNode nodeTwo = FocusNode();
-
     // bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0.0;
 
     return SizedBox.expand(
@@ -215,43 +223,43 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                   height: _columnSpacing,
                 ),
                 MyTextfield(
-                  controller: usernameController,
+                  controller: _usernameController,
                   hintText: "Benutzername oder E-Mail",
-                  focusNode: nodeOne,
+                  focusNode: _usernameNode,
                   strokeColor: _myTextfieldUsernameStrokeColor,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.continueAction,
                   // icon: const Icon(Icons.email, color: purusGreen),
                   onSubmitted: (p0) {
-                    FocusScope.of(context).requestFocus(nodeTwo);
+                    FocusScope.of(context).requestFocus(_passwordNode);
                   },
                 ),
                 SizedBox(
                   height: _columnSpacing,
                 ),
                 MyTextfield(
-                  controller: passwordController,
+                  controller: _passwordController,
                   hintText: "Passwort",
-                  focusNode: nodeTwo,
+                  focusNode: _passwordNode,
 
-                  obscureText: obscureText,
+                  obscureText: _obscureText,
                   strokeColor: _myTextfieldPassswordStrokeColor,
                   keyboardType: TextInputType.visiblePassword,
                   suffix: GestureDetector(
                     onTapDown: (_) {
                       setState(() {
-                        obscureText = false;
-                        showHideIcon();
+                        _obscureText = false;
+                        _showHideIcon();
                       });
                     },
                     onTapUp: (_) {
                       setState(() {
-                        obscureText = true;
-                        showHideIcon();
+                        _obscureText = true;
+                        _showHideIcon();
                       });
                     },
                     child: SFIcon(
-                      showHideIcon(),
+                      _showHideIcon(),
                       color: purusGrey,
                       fontSize: 16,
                     ),
@@ -259,7 +267,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                   textInputAction: TextInputAction.done,
                   // maxLength: 20,
                   onSubmitted: (p0) {
-                    validation();
+                    _validation();
                   },
                   // validator: (value) {
                   //   if (value == null || value.isEmpty) {
@@ -280,10 +288,10 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            stayLoggedBox = !stayLoggedBox;
+                            _stayLoggedBox = !_stayLoggedBox;
                           });
                         },
-                        child: stayLoggedBox
+                        child: _stayLoggedBox
                             ? const SFIcon(
                                 SFIcons.sf_checkmark_square_fill,
                                 color: Colors.white,
@@ -301,7 +309,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            stayLoggedBox = !stayLoggedBox;
+                            _stayLoggedBox = !_stayLoggedBox;
                           });
                         },
                         child: const Text(
@@ -338,7 +346,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                 ),
                 MyButton(
                   onTap: () {
-                    validation();
+                    _validation();
                   },
                   text: "Anmelden",
                 ),
