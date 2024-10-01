@@ -1,6 +1,4 @@
-import "dart:ffi";
 import "dart:ui";
-
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
@@ -19,12 +17,10 @@ import "package:purus_lern_app/src/widgets/my_button.dart";
 import "package:purus_lern_app/src/widgets/my_snack_bar.dart";
 import "package:purus_lern_app/src/widgets/my_textfield.dart";
 
-// hatalar alle*
 // angemeldet bleiben händeln
-// shared pref upd
-// first faceid to dashboard
-// settings faceid
+// settings faceid einrchtung
 // platformbedingt
+// möchtne sie faceid nutzen olayi ++ facid nutzen yapinca angemeldet bleiben olmasin?/faceid sadece angemeldet bleiben yerine gecsin??? + log ekle ++ facid in den einstellungen erlauben!!!
 // ... neydi?
 
 class LoginPlace extends StatefulWidget {
@@ -67,15 +63,12 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
 
   final LocalAuthService _localAuthService = LocalAuthService();
   bool _isAuthenticating = false;
-  bool _isBiometricAvailable = false;
   bool _isConfigFaceidDone = false;
   bool _dontAskMeAgain = false;
 
   @override
   void initState() {
     super.initState();
-
-    _checkBiometricAvailability();
 
     _animationController = AnimationController(
       duration: const Duration(seconds: 2),
@@ -126,12 +119,12 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
         StayLoggedIn().setLoginStatus(_stayLoggedBox);
       }
 
-      if (_isBiometricAvailable &&
+      if (isBiometricAvailable &&
           !isFaceIdConfigured &&
           !_isConfigFaceidDone &&
           !faceIdAskedBeforeAndNo) {
         _askConfigFaceIdAfterLogin();
-      } else if (_isBiometricAvailable && _isConfigFaceidDone) {
+      } else if (isBiometricAvailable && _isConfigFaceidDone) {
         _updateFaceId(true);
         _routeToHomeScreen();
       } else {
@@ -187,10 +180,6 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
         });
       }
     }
-  }
-
-  Future<void> _checkBiometricAvailability() async {
-    _isBiometricAvailable = await _localAuthService.isBiometricAvailable();
   }
 
   void _askConfigFaceIdAfterLogin() {
@@ -291,26 +280,24 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
   }
 
   Future<void> _checkBiometricsAfterLogin() async {
-    if (_isBiometricAvailable) {
-      setState(() {
-        _isAuthenticating = true;
-      });
-      bool authenticated = await _localAuthService.authenticateUser();
-      setState(() {
-        _isAuthenticating = false;
-      });
-      if (authenticated) {
-        if (mounted) {
-          _routeToHomeScreen();
-          _updateFaceId(true);
-        }
-      } else {
-        if (mounted) {
-          _routeToHomeScreen();
-          _updateFaceId(false);
-          mySnackbar(context,
-              "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
-        }
+    setState(() {
+      _isAuthenticating = true;
+    });
+    bool authenticated = await _localAuthService.authenticateUser();
+    setState(() {
+      _isAuthenticating = false;
+    });
+    if (authenticated) {
+      if (mounted) {
+        _routeToHomeScreen();
+        _updateFaceId(true);
+      }
+    } else {
+      if (mounted) {
+        _routeToHomeScreen();
+        _updateFaceId(false);
+        mySnackbar(context,
+            "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
       }
     }
   }
@@ -360,27 +347,23 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
   }
 
   Future<void> _checkBiometrics() async {
-    if (_isBiometricAvailable) {
+    setState(() {
+      _isAuthenticating = true;
+    });
+    bool authenticated = await _localAuthService.authenticateUser();
+    setState(() {
+      _isAuthenticating = false;
+    });
+    if (authenticated) {
       setState(() {
-        _isAuthenticating = true;
+        _isConfigFaceidDone = true;
       });
-      bool authenticated = await _localAuthService.authenticateUser();
-      setState(() {
-        _isAuthenticating = false;
-      });
-      if (authenticated) {
-        if (mounted) {
-          setState(() {
-            _isConfigFaceidDone = true;
-          });
-        }
-      } else {
-        if (mounted) {
-          setState(() {
-            _isConfigFaceidDone = false;
-          });
-          mySnackbar(context, "Fehler beim biometrischen Anmeldeverfahren.");
-        }
+    } else {
+      if (mounted) {
+        setState(() {
+          _isConfigFaceidDone = false;
+        });
+        mySnackbar(context, "Fehler beim biometrischen Anmeldeverfahren.");
       }
     }
   }
@@ -648,11 +631,11 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                             height: _columnSpacing,
                           ),
                           // if (!isKeyboardVisible)
-                          _isBiometricAvailable
+                          isBiometricAvailable
                               ? GestureDetector(
                                   onTap: () {
                                     if (isFaceIdConfigured) {
-                                      _checkBiometrics();
+                                      _checkBiometricsAfterLogin();
                                     } else {
                                       _askConfigFaceId();
                                     }

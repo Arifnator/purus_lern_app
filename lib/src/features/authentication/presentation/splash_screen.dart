@@ -3,6 +3,8 @@ import "package:purus_lern_app/src/config/gradients.dart";
 import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_tried_skipping_splash.dart";
 import "package:purus_lern_app/src/core/presentation/rive_manager.dart";
 import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_app_start_event.dart";
+import "package:purus_lern_app/src/features/authentication/application/faceid_sharedpref.dart";
+import "package:purus_lern_app/src/features/authentication/application/local_auth_service.dart";
 import "package:purus_lern_app/src/features/authentication/data/login_conditions.dart";
 import "package:purus_lern_app/src/features/authentication/domain/onboarding_place_model.dart";
 import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/forgot_password_place.dart";
@@ -31,10 +33,14 @@ class _SplashScreenState extends State<SplashScreen>
   ValueNotifier<String> placeRouteNotifier = ValueNotifier<String>("");
   late Map<String, Widget> authenticationRoutes;
 
+  final LocalAuthService _localAuthService = LocalAuthService();
+
   @override
   void initState() {
     super.initState();
     logAppStartEvent();
+
+    _checkBiometricAvailability();
 
     authenticationRoutes = {
       "Onboarding": OnboardingPlace(
@@ -135,7 +141,7 @@ class _SplashScreenState extends State<SplashScreen>
           setState(() {
             placeRouteNotifier.value = "Onboarding";
           });
-        } else if (isFaceIdConfigured) {
+        } else if (isBiometricAvailable && isFaceIdConfigured) {
           setState(() {
             placeRouteNotifier.value = "FaceId";
           });
@@ -145,6 +151,14 @@ class _SplashScreenState extends State<SplashScreen>
           });
         }
       }
+    }
+  }
+
+  Future<void> _checkBiometricAvailability() async {
+    isBiometricAvailable = await _localAuthService.isBiometricAvailable();
+    if (!isBiometricAvailable) {
+      isFaceIdConfigured = false;
+      FaceidSharedpref().setFaceIdAvailability(false);
     }
   }
 

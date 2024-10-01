@@ -6,8 +6,9 @@ class LocalAuthService {
 
   Future<bool> isBiometricAvailable() async {
     try {
-      return await _auth.canCheckBiometrics || await _auth.isDeviceSupported();
+      return await _auth.canCheckBiometrics && await _auth.isDeviceSupported();
     } catch (e) {
+      debugPrint(e.toString());
       return false;
     }
   }
@@ -16,6 +17,7 @@ class LocalAuthService {
     try {
       return await _auth.getAvailableBiometrics();
     } catch (e) {
+      debugPrint(e.toString());
       return <BiometricType>[];
     }
   }
