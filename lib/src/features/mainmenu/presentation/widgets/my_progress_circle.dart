@@ -12,29 +12,31 @@ class MyProgressCircle extends StatefulWidget {
 }
 
 class _MyProgressCircleState extends State<MyProgressCircle>
-    with TickerProviderStateMixin {
-  late AnimationController controller;
+    with SingleTickerProviderStateMixin {
+  late AnimationController _circleAnimationController;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
+    _circleAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
     );
 
     progressNotifier.addListener(() {
-      controller.animateTo(progressNotifier.value, curve: Curves.easeInOut);
+      _circleAnimationController.animateTo(progressNotifier.value,
+          curve: Curves.easeInOut);
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.animateTo(progressNotifier.value, curve: Curves.easeInOut);
+      _circleAnimationController.animateTo(progressNotifier.value,
+          curve: Curves.easeInOut);
     });
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _circleAnimationController.dispose();
     super.dispose();
   }
 
@@ -69,12 +71,12 @@ class _MyProgressCircleState extends State<MyProgressCircle>
         ),
         SizedBox.expand(
           child: AnimatedBuilder(
-            animation: controller,
+            animation: _circleAnimationController,
             builder: (context, child) {
               return CircularProgressIndicator(
                 backgroundColor: purusLightGreen,
                 color: purusGreen,
-                value: controller.value,
+                value: _circleAnimationController.value,
                 strokeWidth: 8,
                 strokeCap: StrokeCap.round,
               );

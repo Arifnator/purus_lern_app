@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-BoxShadow MyBoxshadowOutside() {
+BoxShadow myBoxshadowOutside() {
   return const BoxShadow(
     color: Color.fromARGB(88, 0, 0, 0),
     blurRadius: 10,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
 
-// textshadows
-
 class MyTextStyles {
   static const TextStyle mainTitle = TextStyle(
     color: purusGrey,

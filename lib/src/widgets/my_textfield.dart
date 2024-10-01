@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
 import 'package:purus_lern_app/src/config/theme.dart';
-
-// owerflow
-// labeltext conflict with container
-// textstyle
-// sizeeee
-// initialvalue for users remember me?
 
 class MyTextfield extends StatelessWidget {
   const MyTextfield({
@@ -43,6 +38,7 @@ class MyTextfield extends StatelessWidget {
     this.autofocus = false,
     this.isDence = false,
     this.showCursor = true,
+    this.inputFormatters,
   });
 
   final Color bgColor;
@@ -77,6 +73,7 @@ class MyTextfield extends StatelessWidget {
   final bool autofocus;
   final bool isDence;
   final bool showCursor;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +91,7 @@ class MyTextfield extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(borderRadius),
         ),
-        shadows: [MyBoxshadowOutside()],
+        shadows: [myBoxshadowOutside()],
       ),
       child: TextFormField(
         controller: controller,
@@ -108,6 +105,7 @@ class MyTextfield extends StatelessWidget {
         onFieldSubmitted: onSubmitted,
         keyboardType: keyboardType,
         textInputAction: textInputAction,
+        inputFormatters: inputFormatters,
         showCursor: showCursor,
         autocorrect: autocorrect,
         textCapitalization: capitalization,

@@ -1,5 +1,5 @@
-class Category {
-  String name;
+// class Category {
+//   String name;
 
-  Category({required this.name});
-}
+//   Category({required this.name});
+// }

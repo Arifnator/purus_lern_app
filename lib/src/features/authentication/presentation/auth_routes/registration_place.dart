@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+
 class RegistrationPlace extends StatelessWidget {
   const RegistrationPlace({super.key, required this.transitionToRoute});
 

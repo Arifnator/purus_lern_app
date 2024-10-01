@@ -1,15 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:purus_lern_app/src/config/gradients.dart';
-import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
-import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/forgot_password_place.dart';
-import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/registration_confirm_place.dart';
-import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/registration_place.dart';
-import 'package:purus_lern_app/src/features/authentication/presentation/splash_bubbles_background.dart';
-import 'package:rive/rive.dart';
-import 'package:purus_lern_app/src/core/presentation/home_screen.dart';
-import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/onboarding_place.dart';
-import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/faceid_place.dart';
-import 'package:purus_lern_app/src/features/authentication/presentation/auth_routes/login_place.dart';
+import "package:flutter/material.dart";
+import "package:purus_lern_app/src/config/gradients.dart";
+import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_tried_skipping_splash.dart";
+import "package:purus_lern_app/src/core/presentation/rive_manager.dart";
+import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_app_start_event.dart";
+import "package:purus_lern_app/src/features/authentication/data/login_conditions.dart";
+import "package:purus_lern_app/src/features/authentication/domain/onboarding_place_model.dart";
+import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/forgot_password_place.dart";
+import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/registration_confirm_place.dart";
+import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/registration_place.dart";
+import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/reset_password_place.dart";
+import "package:purus_lern_app/src/features/authentication/presentation/splash_bubbles_background.dart";
+import "package:purus_lern_app/src/widgets/my_animated_bottom_bar_widget.dart";
+import "package:rive/rive.dart";
+import "package:purus_lern_app/src/core/presentation/home_screen.dart";
+import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/onboarding_place.dart";
+import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/faceid_place.dart";
+import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/login_place.dart";
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -28,15 +34,73 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
+    logAppStartEvent();
 
     authenticationRoutes = {
-      'Onboarding': OnboardingPlace(transitionToRoute: _transitionToRoute),
-      'FaceId': FaceidPlace(transitionToRoute: _transitionToRoute),
-      'Login': LoginPlace(transitionToRoute: _transitionToRoute),
-      'ForgotPassword':
+      "Onboarding": OnboardingPlace(
+        transitionToRoute: _transitionToRoute,
+        pages: [
+          OnboardingPlaceModel(
+            title: "Test Onboarding 1",
+            description:
+                "Hier kommt der Onboarding Text. Hier kommt der Onboarding Text. Hier kommt der Onboarding Text.",
+            content: MyBottomAppBarItem(
+              artboard: RiveManager().homeArtboard,
+              currentIndex: 0,
+              tabIndex: 0,
+              input: RiveManager().homeInput,
+              cb: () {},
+            ),
+            bgColor: Colors.transparent,
+          ),
+          OnboardingPlaceModel(
+              title: "Test Onboarding 2",
+              description:
+                  "Hier kommt der Onboarding Text. Hier kommt der Onboarding Text. Hier kommt der Onboarding Text.",
+              content: MyBottomAppBarItem(
+                artboard: RiveManager().eduArtboard,
+                currentIndex: 0,
+                tabIndex: 0,
+                input: RiveManager().eduInput,
+                cb: () {},
+              ),
+              bgColor: Colors.transparent),
+          OnboardingPlaceModel(
+            title: "Test Onboarding 3",
+            description:
+                "Hier kommt der Onboarding Text. Hier kommt der Onboarding Text. Hier kommt der Onboarding Text.",
+            content: MyBottomAppBarItem(
+              artboard: RiveManager().lexiArtboard,
+              currentIndex: 0,
+              tabIndex: 0,
+              input: RiveManager().lexiInput,
+              cb: () {},
+            ),
+            bgColor: Colors.transparent,
+          ),
+          OnboardingPlaceModel(
+            title: "Test Onboarding 4",
+            description:
+                "Hier kommt der Onboarding Text. Hier kommt der Onboarding Text. Hier kommt der Onboarding Text.",
+            content: MyBottomAppBarItem(
+              artboard: RiveManager().settingsArtboard,
+              currentIndex: 0,
+              tabIndex: 0,
+              input: RiveManager().settingsInput,
+              cb: () {},
+            ),
+            bgColor: Colors.transparent,
+          ),
+        ],
+      ),
+      "FaceId": FaceidPlace(transitionToRoute: _transitionToRoute),
+      "Login": LoginPlace(transitionToRoute: _transitionToRoute),
+      "ForgotPassword":
           ForgotPasswordPlace(transitionToRoute: _transitionToRoute),
-      'Registration': RegistrationPlace(transitionToRoute: _transitionToRoute),
-      'RegistrationConfirm':
+      "ResetPassword":
+          ResetPasswordPlace(transitionToRoute: _transitionToRoute),
+      "Registration": RegistrationPlace(transitionToRoute: _transitionToRoute),
+      "RegistrationConfirm":
           RegistrationConfirmPlace(transitionToRoute: _transitionToRoute),
     };
 
@@ -69,15 +133,15 @@ class _SplashScreenState extends State<SplashScreen>
       } else {
         if (isOnboardingNotComplete) {
           setState(() {
-            placeRouteNotifier.value = 'Onboarding';
+            placeRouteNotifier.value = "Onboarding";
           });
         } else if (isFaceIdAvailable) {
           setState(() {
-            placeRouteNotifier.value = 'FaceId';
+            placeRouteNotifier.value = "FaceId";
           });
         } else {
           setState(() {
-            placeRouteNotifier.value = 'Login';
+            placeRouteNotifier.value = "Login";
           });
         }
       }
@@ -86,7 +150,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   void _transitionToRoute(String route) async {
     setState(() {
-      placeRouteNotifier.value = '';
+      placeRouteNotifier.value = "";
     });
     await Future.delayed(const Duration(milliseconds: 300));
     setState(() {
@@ -105,6 +169,7 @@ class _SplashScreenState extends State<SplashScreen>
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
+        logTriedSkippingSplash();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Container(
@@ -128,7 +193,7 @@ class _SplashScreenState extends State<SplashScreen>
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 30.0),
                           child: RiveAnimation.asset(
-                            'assets/animations/splash_animation_shadow.riv',
+                            "assets/animations/splash_animation_shadow.riv",
                             fit: BoxFit.contain,
                           ),
                         ),

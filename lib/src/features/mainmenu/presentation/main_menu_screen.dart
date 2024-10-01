@@ -18,7 +18,7 @@ class MainmenuScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 12.0, left: 12, right: 12),
             child: MenuCardsWidget(
-              // onTap: () {},
+              onTap: () {},
               width: double.infinity,
               padding: 5,
               title: "Lernvideo fortsetzen / nächstes Lernvideo",
