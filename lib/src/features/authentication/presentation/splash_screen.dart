@@ -135,7 +135,7 @@ class _SplashScreenState extends State<SplashScreen>
           setState(() {
             placeRouteNotifier.value = "Onboarding";
           });
-        } else if (isFaceIdAvailable) {
+        } else if (isFaceIdConfigured) {
           setState(() {
             placeRouteNotifier.value = "FaceId";
           });

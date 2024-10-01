@@ -46,8 +46,8 @@ class _ForgotPasswordPlaceState extends State<ForgotPasswordPlace> {
     if (_isUsernameValid) {
       resetPasswordTempAccountName = _resetPasswordController.text;
 
-      logLogin(
-          _resetPasswordController.text.contains("@") ? "email" : "username");
+      // logLogin(
+      //     _resetPasswordController.text.contains("@") ? "email" : "username", false);
       mySnackbar(context,
           "Passwort erfolgreich Zurückgesetzt. Kontrollieren Sie Ihre E-Mail's.");
       widget.transitionToRoute("ResetPassword");
