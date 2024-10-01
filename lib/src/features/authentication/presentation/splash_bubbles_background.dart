@@ -22,7 +22,7 @@ class _SplashBubblesBackgroundState extends State<SplashBubblesBackground>
       vsync: this,
       duration: const Duration(seconds: 30),
     )..repeat(reverse: true);
-    _bubbles = List.generate(8, (index) => Bubble(index));
+    _bubbles = List.generate(10, (index) => Bubble(index));
   }
 
   @override
@@ -108,7 +108,7 @@ class BubblesPainter extends CustomPainter {
       bubble.update(animationValue);
       final paint = Paint()
         ..color = purusGreen.withOpacity(bubble.opacity)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 90.0);
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 70.0);
       final x = bubble.x * size.width;
       final y = bubble.y * size.height;
       canvas.drawCircle(Offset(x, y), bubble.radius, paint);

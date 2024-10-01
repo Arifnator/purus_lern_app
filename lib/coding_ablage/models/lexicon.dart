@@ -1,9 +1,9 @@
-class Lexicon {
-  String title;
-  String description;
+// class Lexicon {
+//   String title;
+//   String description;
 
-  Lexicon({
-    required this.title,
-    required this.description,
-  });
-}
+//   Lexicon({
+//     required this.title,
+//     required this.description,
+//   });
+// }

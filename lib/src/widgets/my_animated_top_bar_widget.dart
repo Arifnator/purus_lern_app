@@ -1,5 +1,3 @@
-// App bar aninmation + logo + shadows
-
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/config/my_text_styles.dart';
 import 'package:purus_lern_app/src/config/palette.dart';

@@ -80,7 +80,7 @@ class _MyButtonState extends State<MyButton> {
               borderRadius: BorderRadius.circular(widget.borderRadius),
             ),
             shadows: [
-              MyBoxshadowOutside(),
+              myBoxshadowOutside(),
             ],
           ),
           child: InnerShadow(

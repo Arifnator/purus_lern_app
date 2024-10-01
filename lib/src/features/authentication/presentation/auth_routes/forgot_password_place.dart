@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
 import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_errors.dart';
 import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_login.dart';
+import 'package:purus_lern_app/src/features/authentication/data/reset_password_temp_account_name.dart';
 import 'package:purus_lern_app/src/widgets/my_button.dart';
+import 'package:purus_lern_app/src/widgets/my_snack_bar.dart';
 import 'package:purus_lern_app/src/widgets/my_textfield.dart';
 
 class ForgotPasswordPlace extends StatefulWidget {
-  const ForgotPasswordPlace({super.key, required this.transitionToRoute});
+  const ForgotPasswordPlace({
+    super.key,
+    required this.transitionToRoute,
+  });
 
   final void Function(String route) transitionToRoute;
 
@@ -18,38 +24,33 @@ class _ForgotPasswordPlaceState extends State<ForgotPasswordPlace> {
   final FocusNode _usernameNode = FocusNode();
 
   // final _formKey = GlobalKey<FormState>();
-  final TextEditingController _resetPasswortController =
+  final TextEditingController _resetPasswordController =
       TextEditingController();
 
   final double _columnSpacing = 25;
+
   bool _isUsernameValid = false;
 
   String _alertText =
-      "Benutzername oder E-Mail Adresse eingeben, um ihr Passwort zurückzusetzen.";
+      "Benutzernamen oder E-Mail Adresse eingeben, um ihr Passwort zurückzusetzen.";
   Color _alertTextColor = Colors.white;
   Color _myTextfieldResetPasswordStrokeColor = purusGrey;
 
   void _validation() {
-    // setState(() {
-    _resetPasswortController.text.trimLeft().trimRight();
-    // });
-
-    if (_resetPasswortController.text == "admin") {
+    if (_resetPasswordController.text == "admin") {
       _isUsernameValid = true;
     }
 
     _alertTextAndTextfieldStrokeUpdate();
-    FocusManager.instance.primaryFocus?.unfocus();
 
     if (_isUsernameValid) {
+      resetPasswordTempAccountName = _resetPasswordController.text;
+
       logLogin(
-          _resetPasswortController.text.contains("@") ? "email" : "username");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text(
-                "Passwort erfolgreich Zurückgesetzt. Kontrollieren Sie Ihre E-Mail's.")),
-      );
-      widget.transitionToRoute('Login');
+          _resetPasswordController.text.contains("@") ? "email" : "username");
+      mySnackbar(context,
+          "Passwort erfolgreich Zurückgesetzt. Kontrollieren Sie Ihre E-Mail's.");
+      widget.transitionToRoute("ResetPassword");
     }
     // if (_formKey.currentState!.validate()) {
     // } else {
@@ -57,9 +58,9 @@ class _ForgotPasswordPlaceState extends State<ForgotPasswordPlace> {
   }
 
   void _alertTextAndTextfieldStrokeUpdate() {
-    if (_resetPasswortController.text.isEmpty) {
+    if (_resetPasswordController.text.isEmpty) {
       setState(() {
-        _alertText = "Fehlende Eingaben";
+        _alertText = "Fehlende Eingabe";
         _alertTextColor = purusRed;
         _myTextfieldResetPasswordStrokeColor = purusRed;
       });
@@ -85,6 +86,7 @@ class _ForgotPasswordPlaceState extends State<ForgotPasswordPlace> {
   @override
   void dispose() {
     _usernameNode.dispose();
+    _resetPasswordController.dispose();
     super.dispose();
   }
 
@@ -124,16 +126,18 @@ class _ForgotPasswordPlaceState extends State<ForgotPasswordPlace> {
                   height: 100,
                 ),
                 MyTextfield(
-                  controller: _resetPasswortController,
+                  controller: _resetPasswordController,
                   hintText: "Benutzername oder E-Mail",
                   focusNode: _usernameNode,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                  ],
                   strokeColor: _myTextfieldResetPasswordStrokeColor,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.done,
                   // icon: const Icon(Icons.email, color: purusGreen),
                   onSubmitted: (p0) {
                     _validation();
-                    FocusManager.instance.primaryFocus?.unfocus();
                   },
                 ),
                 SizedBox(
@@ -154,7 +158,7 @@ class _ForgotPasswordPlaceState extends State<ForgotPasswordPlace> {
                       height: 80,
                       child: Center(
                         child: Text(
-                          "Haben Sie kein Account? Hier zur ",
+                          "Haben Sie keinen Account? Hier zur ",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10,
@@ -165,7 +169,6 @@ class _ForgotPasswordPlaceState extends State<ForgotPasswordPlace> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        FocusManager.instance.primaryFocus?.unfocus();
                         widget.transitionToRoute('Registration');
                       },
                       child: const SizedBox(
@@ -195,7 +198,6 @@ class _ForgotPasswordPlaceState extends State<ForgotPasswordPlace> {
                     icon: const Icon(Icons.arrow_back_ios_new),
                     color: Colors.white,
                     onPressed: () {
-                      FocusManager.instance.primaryFocus?.unfocus();
                       widget.transitionToRoute('Login');
                     },
                   ),

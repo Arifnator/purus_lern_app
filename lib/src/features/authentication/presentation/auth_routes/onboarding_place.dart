@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_onboarding_done_or_skiped.dart';
+import 'package:purus_lern_app/src/features/authentication/application/onboarding_status.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:purus_lern_app/src/features/authentication/domain/onboarding_place_model.dart';
-
-// optionel onboardign button
-// slidable nasil oldu? yap / WETTER APP GIBI +++ sharedpref ekle!!! +++ parent fehler flex
 
 class OnboardingPlace extends StatefulWidget {
   const OnboardingPlace(
@@ -100,9 +98,9 @@ class _OnboardingPlaceState extends State<OnboardingPlace> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextButton(
-                      onPressed: () {
-                        isOnboardingNotComplete = false;
-                        logOnboardingSkipped();
+                      onPressed: () async {
+                        await OnboardingStatus().setOnboardingStatus(true);
+                        await logOnboardingSkipped();
                         if (isFaceIdAvailable) {
                           widget.transitionToRoute('FaceId');
                         } else {
@@ -114,10 +112,10 @@ class _OnboardingPlaceState extends State<OnboardingPlace> {
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       )),
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_currentPage == widget.pages.length - 1) {
-                        isOnboardingNotComplete = true;
-                        logOnboardingDone();
+                        await OnboardingStatus().setOnboardingStatus(true);
+                        await logOnboardingDone();
                         if (isFaceIdAvailable) {
                           widget.transitionToRoute('FaceId');
                         } else {
