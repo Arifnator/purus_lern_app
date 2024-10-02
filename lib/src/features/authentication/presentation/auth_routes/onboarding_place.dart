@@ -101,7 +101,7 @@ class _OnboardingPlaceState extends State<OnboardingPlace> {
                       onPressed: () async {
                         await OnboardingStatus().setOnboardingStatus(true);
                         await logOnboardingSkipped();
-                        if (isFaceIdAvailable) {
+                        if (isFaceIdConfigured) {
                           widget.transitionToRoute('FaceId');
                         } else {
                           widget.transitionToRoute('Login');
@@ -116,7 +116,7 @@ class _OnboardingPlaceState extends State<OnboardingPlace> {
                       if (_currentPage == widget.pages.length - 1) {
                         await OnboardingStatus().setOnboardingStatus(true);
                         await logOnboardingDone();
-                        if (isFaceIdAvailable) {
+                        if (isFaceIdConfigured) {
                           widget.transitionToRoute('FaceId');
                         } else {
                           widget.transitionToRoute('Login');
