@@ -4,3 +4,4 @@ bool isFaceIdConfigured = false;
 
 bool faceIdAskedBeforeAndNo = false;
 bool isBiometricAvailable = false;
+late bool isDeviceSupportedForBiometric;

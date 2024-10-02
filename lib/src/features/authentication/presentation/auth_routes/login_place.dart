@@ -18,10 +18,12 @@ import "package:purus_lern_app/src/widgets/my_snack_bar.dart";
 import "package:purus_lern_app/src/widgets/my_textfield.dart";
 
 // angemeldet bleiben händeln
-// settings faceid einrchtung
+// direkt faceid alowment ayarla? apple? (beschreiben yap?)
 // platformbedingt
-// möchtne sie faceid nutzen olayi ++ facid nutzen yapinca angemeldet bleiben olmasin?/faceid sadece angemeldet bleiben yerine gecsin??? + log ekle ++ facid in den einstellungen erlauben!!!
-// ... neydi?
+// Bio ikiye böl: bir system compatible(testen et biriyle?) + erlaubt
+// faceid ve angemeldet bleiben olursa firebase auth kalici olsun: anmeldedaten in sharedpref fln!
+// facid nutzen yapinca angemeldet bleiben olmasin?/faceid sadece angemeldet bleiben yerine gecsin???
+// log ekle
 
 class LoginPlace extends StatefulWidget {
   const LoginPlace({super.key, required this.transitionToRoute});
@@ -125,7 +127,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
           !faceIdAskedBeforeAndNo) {
         _askConfigFaceIdAfterLogin();
       } else if (isBiometricAvailable && _isConfigFaceidDone) {
-        _updateFaceId(true);
+        updateFaceId(true);
         _routeToHomeScreen();
       } else {
         _routeToHomeScreen();
@@ -239,7 +241,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                     });
                     Navigator.pop(context);
                     _routeToHomeScreen();
-                    _updateFaceId(false);
+                    updateFaceId(false);
 
                     if (_dontAskMeAgain) {
                       FaceidDontAskMeAgainSharedpref()
@@ -290,14 +292,27 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
     if (authenticated) {
       if (mounted) {
         _routeToHomeScreen();
-        _updateFaceId(true);
+        updateFaceId(true);
+        if (mounted) {
+          mySnackbar(context,
+              "Biometrisches Anmeldeverfahren erfolgreich eingerichtet.");
+        }
       }
     } else {
-      if (mounted) {
-        _routeToHomeScreen();
-        _updateFaceId(false);
-        mySnackbar(context,
-            "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
+      _routeToHomeScreen();
+      updateFaceId(false);
+      await checkBiometricAvailability();
+      if (!isBiometricAvailable) {
+        setState(() {});
+        if (mounted) {
+          mySnackbar(context,
+              "Erlaubnis für biometrisches Anmeldeverfahren fehlt. Sie können es jederzeit nach Erlaubniserteilung in den Einstellungen einrichten.");
+        } else {
+          if (mounted) {
+            mySnackbar(context,
+                "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
+          }
+        }
       }
     }
   }
@@ -358,20 +373,28 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
       setState(() {
         _isConfigFaceidDone = true;
       });
-    } else {
       if (mounted) {
-        setState(() {
-          _isConfigFaceidDone = false;
-        });
-        mySnackbar(context, "Fehler beim biometrischen Anmeldeverfahren.");
+        mySnackbar(context,
+            "Nach erfolgreicher Anmeldung ist das Biometrische Anmeldeverfahren automatisch eingerichtet.");
+      }
+    } else {
+      setState(() {
+        _isConfigFaceidDone = false;
+      });
+      await checkBiometricAvailability();
+      if (!isBiometricAvailable) {
+        setState(() {});
+        if (mounted) {
+          mySnackbar(context,
+              "Erlaubnis für biometrisches Anmeldeverfahren fehlt. Sie können es jederzeit nach Erlaubniserteilung in den Einstellungen einrichten.");
+        } else {
+          if (mounted) {
+            mySnackbar(context,
+                "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
+          }
+        }
       }
     }
-  }
-
-  void _updateFaceId(bool value) async {
-    isFaceIdConfigured = value;
-    FaceidSharedpref sharedPrefFaceid = FaceidSharedpref();
-    await sharedPrefFaceid.setFaceIdAvailability(value);
   }
 
   void _routeToHomeScreen() async {

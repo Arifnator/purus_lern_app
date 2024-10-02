@@ -11,6 +11,7 @@ import 'package:purus_lern_app/src/features/authentication/application/onboardin
 import 'package:purus_lern_app/src/features/authentication/application/stay_logged_in.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:purus_lern_app/src/widgets/my_snack_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -31,27 +32,57 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _checkBiometrics() async {
-    if (isBiometricAvailable) {
-      setState(() {
-        _isAuthenticating = true;
-      });
-      bool authenticated = await _localAuthService.authenticateUser();
-      setState(() {
-        _isAuthenticating = false;
-      });
-      if (authenticated) {
+    setState(() {
+      _isAuthenticating = true;
+    });
+    bool authenticated = await _localAuthService.authenticateUser();
+    setState(() {
+      _isAuthenticating = false;
+    });
+    if (authenticated) {
+      if (mounted) {
         setState(() {
-          isFaceIdConfigured = true;
+          updateFaceId(true);
         });
-        await FaceidSharedpref().setFaceIdAvailability(true);
+        if (mounted) {
+          mySnackbar(context,
+              "Biometrisches Anmeldeverfahren erfolgreich eingerichtet.");
+        }
+      }
+    } else {
+      setState(() {
+        updateFaceId(false);
+      });
+      await checkBiometricAvailability();
+      if (!isBiometricAvailable) {
+        setState(() {});
+        if (mounted) {
+          mySnackbar(context,
+              "Erlaubnis für biometrisches Anmeldeverfahren fehlt. Sie können es jederzeit nach Erlaubniserteilung in den Einstellungen einrichten.");
+        }
       } else {
         if (mounted) {
-          mySnackbar(context, "Fehler beim biometrischen Anmeldeverfahren.");
-          setState(() {
-            isFaceIdConfigured = false;
-          });
-          await FaceidSharedpref().setFaceIdAvailability(false);
+          mySnackbar(context,
+              "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
         }
+      }
+    }
+  }
+
+  Future<void> openBiometricSettings() async {
+    if (Theme.of(context).platform == TargetPlatform.android) {
+      const url = 'package:com.android.settings.BIOMETRIC_ENROLL';
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        await launch('package:com.android.settings');
+      }
+    } else if (Theme.of(context).platform == TargetPlatform.iOS) {
+      const url = 'App-Prefs:root=FACE_ID';
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        await launch('App-Prefs:root');
       }
     }
   }
@@ -90,71 +121,83 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         .setDontAskAgainPreference(false);
                   },
                   child: const Text("Reset faceid Dont ask me again")),
-              isBiometricAvailable
-                  ? isFaceIdConfigured
-                      ? TextButton(
-                          onPressed: () async {
-                            setState(() {
-                              _isAuthenticating = true;
-                            });
-                            showCupertinoDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return StatefulBuilder(
-                                  builder: (context, setDialogState) {
-                                    return CupertinoAlertDialog(
-                                      title: const Text("Bestätigen"),
-                                      content: const Text(
-                                        "Möchten Sie das biometrische Anmeldeverfahren ausschalten?",
-                                      ),
-                                      actions: [
-                                        CupertinoDialogAction(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            setState(() {
-                                              _isAuthenticating = false;
-                                            });
-                                          },
-                                          child: const Text(
-                                            "Nein",
-                                            style: TextStyle(
-                                                color: CupertinoColors
-                                                    .destructiveRed),
-                                          ),
+              SizedBox(
+                height: 200,
+                width: 200,
+                child: isBiometricAvailable
+                    ? isFaceIdConfigured
+                        ? TextButton(
+                            onPressed: () async {
+                              setState(() {
+                                _isAuthenticating = true;
+                              });
+                              showCupertinoDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return StatefulBuilder(
+                                    builder: (context, setDialogState) {
+                                      return CupertinoAlertDialog(
+                                        title: const Text("Bestätigen"),
+                                        content: const Text(
+                                          "Möchten Sie das biometrische Anmeldeverfahren ausschalten?",
                                         ),
-                                        CupertinoDialogAction(
-                                          onPressed: () async {
-                                            Navigator.pop(context);
-                                            setState(() {
-                                              isFaceIdConfigured = false;
-                                              _isAuthenticating = false;
-                                            });
-                                            await FaceidSharedpref()
-                                                .setFaceIdAvailability(false);
-                                          },
-                                          child: const Text(
-                                            "Ja",
-                                            style: TextStyle(
-                                                color:
-                                                    CupertinoColors.activeBlue),
+                                        actions: [
+                                          CupertinoDialogAction(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              setState(() {
+                                                _isAuthenticating = false;
+                                              });
+                                            },
+                                            child: const Text(
+                                              "Nein",
+                                              style: TextStyle(
+                                                  color: CupertinoColors
+                                                      .destructiveRed),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                            );
-                          },
-                          child: const Text(
-                              "Biometrisches Anmeldeverfahren ausschalten"))
-                      : TextButton(
-                          onPressed: () {
-                            _checkBiometrics();
-                          },
-                          child: const Text(
-                              "Biometrisches Anmeldeverfahren einrichten"))
-                  : const SizedBox(),
+                                          CupertinoDialogAction(
+                                            onPressed: () async {
+                                              Navigator.pop(context);
+                                              setState(() {
+                                                isFaceIdConfigured = false;
+                                                _isAuthenticating = false;
+                                              });
+                                              await FaceidSharedpref()
+                                                  .setFaceIdAvailability(false);
+                                            },
+                                            child: const Text(
+                                              "Ja",
+                                              style: TextStyle(
+                                                  color: CupertinoColors
+                                                      .activeBlue),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                            child: const Text(
+                                "Biometrisches Anmeldeverfahren ausschalten"))
+                        : TextButton(
+                            onPressed: () {
+                              _checkBiometrics();
+                            },
+                            child: const Text(
+                                "Biometrisches Anmeldeverfahren einrichten"))
+                    : isDeviceSupportedForBiometric
+                        ? TextButton(
+                            onPressed: () {
+                              openBiometricSettings();
+                            },
+                            child: const Text(
+                                "Erlaubnis für Biometrisches Anmeldeverfahren erteilen"))
+                        : const Text(
+                            "Ihr Gerät oder die Platform ist für Biometrische Anmeldeverfahren nicht geeignet"),
+              ),
             ],
           ),
           if (_isAuthenticating)

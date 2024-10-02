@@ -15,6 +15,7 @@ Future<void> logAppStartEvent() async {
       "isOnboardingNotComplete": isOnboardingNotComplete.toString(),
       "isFaceIdAvailable": isFaceIdConfigured.toString(),
       "faceIdAskedBeforeAndNo": faceIdAskedBeforeAndNo.toString(),
+      "isDeviceSupportedForBiometric": isDeviceSupportedForBiometric.toString(),
       // "os_version": "12.4.5",
       // "device_model": "iPhone 13 Pro",
       // "app_language": "en",

@@ -1,4 +1,11 @@
+import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+void updateFaceId(bool value) async {
+  isFaceIdConfigured = value;
+  FaceidSharedpref sharedPrefFaceid = FaceidSharedpref();
+  await sharedPrefFaceid.setFaceIdAvailability(value);
+}
 
 class FaceidSharedpref {
   Future<void> setFaceIdAvailability(bool isFaceIdAvailable) async {
