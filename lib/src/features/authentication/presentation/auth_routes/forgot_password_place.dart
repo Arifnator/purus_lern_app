@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
 import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_errors.dart';
-import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_login.dart';
 import 'package:purus_lern_app/src/features/authentication/data/reset_password_temp_account_name.dart';
 import 'package:purus_lern_app/src/widgets/my_button.dart';
 import 'package:purus_lern_app/src/widgets/my_snack_bar.dart';
