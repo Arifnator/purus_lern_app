@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:773908168216:android:7af80c7ff943ef54194d6d",
+        "mobilesdk_app_id": "1:773908168216:android:f54960537cd2735a194d6d",
         "android_client_info": {
-          "package_name": "com.puruslernapp.app"
+          "package_name": "com.purus.lernapp"
         }
       },
       "oauth_client": [],

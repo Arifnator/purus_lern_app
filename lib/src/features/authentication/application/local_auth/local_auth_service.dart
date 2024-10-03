@@ -1,15 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:purus_lern_app/src/features/authentication/application/faceid_sharedpref.dart';
-import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
-
-Future<void> checkBiometricAvailability() async {
-  isBiometricAvailable = await LocalAuthService().isBiometricAvailable();
-  if (!isBiometricAvailable) {
-    isFaceIdConfigured = false;
-    FaceidSharedpref().setFaceIdAvailability(false);
-  }
-}
 
 class LocalAuthService {
   final LocalAuthentication _auth = LocalAuthentication();

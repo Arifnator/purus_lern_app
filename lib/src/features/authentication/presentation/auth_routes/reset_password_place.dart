@@ -234,7 +234,7 @@ class _ResetPasswordPlaceState extends State<ResetPasswordPlace> {
                   ],
                   strokeColor: _myTextfieldResettedPasswordStrokeColor,
                   keyboardType: TextInputType.visiblePassword,
-                  textInputAction: TextInputAction.continueAction,
+                  textInputAction: TextInputAction.next,
                   suffix: GestureDetector(
                     onTapDown: (_) {
                       setState(() {
@@ -290,7 +290,7 @@ class _ResetPasswordPlaceState extends State<ResetPasswordPlace> {
                         ],
                         strokeColor: _myTextfieldNewPasswordStrokeColor,
                         keyboardType: TextInputType.visiblePassword,
-                        textInputAction: TextInputAction.continueAction,
+                        textInputAction: TextInputAction.next,
                         suffix: GestureDetector(
                           onTapDown: (_) {
                             setState(() {
