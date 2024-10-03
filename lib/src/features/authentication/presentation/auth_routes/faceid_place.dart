@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/core/presentation/home_screen.dart';
-import 'package:purus_lern_app/src/features/authentication/application/local_auth_service.dart';
+import 'package:purus_lern_app/src/features/authentication/application/local_auth/local_auth_service.dart';
 import 'package:purus_lern_app/src/widgets/my_snack_bar.dart';
 import 'package:purus_lern_app/src/widgets/my_text_button.dart';
 

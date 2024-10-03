@@ -9,7 +9,8 @@ import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_login.da
 import "package:purus_lern_app/src/core/presentation/home_screen.dart";
 import "package:purus_lern_app/src/features/authentication/application/faceid_dont_ask_me_again_sharedpred.dart";
 import "package:purus_lern_app/src/features/authentication/application/faceid_sharedpref.dart";
-import "package:purus_lern_app/src/features/authentication/application/local_auth_service.dart";
+import "package:purus_lern_app/src/features/authentication/application/local_auth/check_biometric_availability.dart";
+import "package:purus_lern_app/src/features/authentication/application/local_auth/local_auth_service.dart";
 import "package:purus_lern_app/src/features/authentication/application/stay_logged_in.dart";
 import "package:purus_lern_app/src/features/authentication/data/login_conditions.dart";
 import "package:purus_lern_app/src/widgets/my_animated_checkmark.dart";
@@ -121,12 +122,12 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
         StayLoggedIn().setLoginStatus(_stayLoggedBox);
       }
 
-      if (isBiometricAvailable &&
+      if (isBiometricAvailable.value &&
           !isFaceIdConfigured &&
           !_isConfigFaceidDone &&
           !faceIdAskedBeforeAndNo) {
         _askConfigFaceIdAfterLogin();
-      } else if (isBiometricAvailable && _isConfigFaceidDone) {
+      } else if (isBiometricAvailable.value && _isConfigFaceidDone) {
         updateFaceId(true);
         _routeToHomeScreen();
       } else {
@@ -301,7 +302,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
         _routeToHomeScreen();
         updateFaceId(false);
         await checkBiometricAvailability();
-        if (!isBiometricAvailable) {
+        if (!isBiometricAvailable.value) {
           setState(() {});
           if (mounted) {
             mySnackbar(context,
@@ -390,7 +391,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
       } else {
         await checkBiometricAvailability();
 
-        if (!isBiometricAvailable && mounted) {
+        if (!isBiometricAvailable.value && mounted) {
           mySnackbar(
             context,
             "Erlaubnis für biometrisches Anmeldeverfahren fehlt. Sie können es jederzeit nach Erlaubniserteilung in den Einstellungen einrichten.",
@@ -668,10 +669,13 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                             height: _columnSpacing,
                           ),
                           // if (!isKeyboardVisible)
-                          isBiometricAvailable
-                              ? GestureDetector(
+                          ValueListenableBuilder<bool>(
+                            valueListenable: isBiometricAvailable,
+                            builder: (context, value, child) {
+                              if (value) {
+                                return GestureDetector(
                                   onTap: () {
-                                    if (isFaceIdConfigured) {
+                                    if (isFaceIdConfigured && isLoggedIn) {
                                       _checkBiometricsAfterLogin();
                                     } else {
                                       _askConfigFaceId();
@@ -710,11 +714,14 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                                       )
                                     ],
                                   ),
-                                )
-                              : const SizedBox(
+                                );
+                              } else {
+                                return SizedBox(
                                   height: 90,
-                                ),
-
+                                );
+                              }
+                            },
+                          ),
                           const SizedBox(
                             height: 10,
                           ),

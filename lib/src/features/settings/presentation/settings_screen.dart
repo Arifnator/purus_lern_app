@@ -1,14 +1,19 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:purus_lern_app/src/core/get_app_info.dart';
 import 'package:purus_lern_app/src/features/authentication/application/faceid_dont_ask_me_again_sharedpred.dart';
 import 'package:purus_lern_app/src/features/authentication/application/faceid_sharedpref.dart';
 import 'package:purus_lern_app/src/features/authentication/application/go_to_biometric_settings.dart';
-import 'package:purus_lern_app/src/features/authentication/application/local_auth_service.dart';
+import 'package:purus_lern_app/src/features/authentication/application/local_auth/check_biometric_availability.dart';
+import 'package:purus_lern_app/src/features/authentication/application/local_auth/local_auth_service.dart';
+import 'package:purus_lern_app/src/features/authentication/application/local_auth/refresh_biometric_state.dart';
 import 'package:purus_lern_app/src/features/authentication/application/logout.dart';
 import 'package:purus_lern_app/src/features/authentication/application/onboarding_status.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:purus_lern_app/src/widgets/my_snack_bar.dart';
+
+// app version yaz + splash auch??
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -45,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           updateFaceId(false);
         });
         await checkBiometricAvailability();
-        if (!isBiometricAvailable) {
+        if (!isBiometricAvailable.value) {
           setState(() {});
           if (mounted) {
             mySnackbar(context,
@@ -77,9 +82,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               TextButton(
                   onPressed: () {
+                    getAppInfo();
+                  },
+                  child: Text("get app info")),
+              TextButton(
+                  onPressed: () {
                     goToBiometricSettings(context);
                   },
                   child: Text("erlaubnis für biometrische anmeldung")),
+              TextButton(
+                  onPressed: () {
+                    refreshBiometricState(context, mounted, true);
+                  },
+                  child: Text(
+                      "Refresh biometric state / App Neustarten hinweisen?")),
               TextButton(
                   onPressed: () {
                     logout(context);
@@ -103,9 +119,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               SizedBox(
                 height: 300,
                 width: 200,
-                child: isBiometricAvailable
-                    ? isFaceIdConfigured
-                        ? TextButton(
+                child: ValueListenableBuilder<bool>(
+                  valueListenable: isBiometricAvailable,
+                  builder: (context, value, child) {
+                    if (value) {
+                      if (isFaceIdConfigured) {
+                        return TextButton(
                             onPressed: () async {
                               setState(() {
                                 _isAuthenticating = true;
@@ -160,31 +179,45 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               );
                             },
                             child: const Text(
-                                "Biometrisches Anmeldeverfahren ausschalten"))
-                        : TextButton(
+                                "Biometrisches Anmeldeverfahren ausschalten"));
+                      } else {
+                        return TextButton(
                             onPressed: () {
                               _checkBiometrics();
                             },
                             child: const Text(
-                                "Biometrisches Anmeldeverfahren einrichten"))
-                    : isDeviceSupportedForBiometric
-                        ? TextButton(
-                            onPressed: () {
-                              goToBiometricSettings(context);
-                            },
-                            child: const Text(
-                                "Erlaubnis für Biometrisches Anmeldeverfahren erteilen"))
-                        : Column(
-                            children: [
-                              Text(
-                                  "Ihr Gerät oder die Platform ist für Biometrische Anmeldeverfahren nicht geeignet oder ausgeschaltet."),
-                              TextButton(
+                                "Biometrisches Anmeldeverfahren einrichten"));
+                      }
+                    } else {
+                      return ValueListenableBuilder<bool>(
+                          valueListenable: isDeviceSupportedForBiometric,
+                          builder: (context, value, child) {
+                            if (value) {
+                              return TextButton(
                                   onPressed: () {
-                                    goToBiometricSettings(context);
+                                    goToBiometricSettings(
+                                      context,
+                                    );
                                   },
-                                  child: const Text("Zu den Einstellungen"))
-                            ],
-                          ),
+                                  child: const Text(
+                                      "Erlaubnis für biometrisches Anmeldeverfahren erteilen"));
+                            } else {
+                              return Column(
+                                children: [
+                                  Text(
+                                      "Ihr Gerät oder die Platform ist für biometrische Anmeldeverfahren nicht geeignet oder ausgeschaltet."),
+                                  TextButton(
+                                      onPressed: () {
+                                        goToBiometricSettings(context);
+                                      },
+                                      child: const Text("Zu den Einstellungen"))
+                                ],
+                              );
+                            }
+                          });
+                    }
+                  },
+                ),
               ),
             ],
           ),

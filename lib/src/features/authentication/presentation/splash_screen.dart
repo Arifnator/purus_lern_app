@@ -133,7 +133,7 @@ class _SplashScreenState extends State<SplashScreen>
           setState(() {
             placeRouteNotifier.value = "Onboarding";
           });
-        } else if (isBiometricAvailable && isFaceIdConfigured) {
+        } else if (isBiometricAvailable.value && isFaceIdConfigured) {
           setState(() {
             placeRouteNotifier.value = "FaceId";
           });
