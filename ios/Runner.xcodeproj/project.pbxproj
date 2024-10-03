@@ -336,7 +336,6 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"$(SRCROOT)/newInputFile.xcfilelist",
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
