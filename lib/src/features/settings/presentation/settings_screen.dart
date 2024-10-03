@@ -1,17 +1,14 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:purus_lern_app/main.dart';
-import 'package:purus_lern_app/src/core/main_initialize.dart';
 import 'package:purus_lern_app/src/features/authentication/application/faceid_dont_ask_me_again_sharedpred.dart';
 import 'package:purus_lern_app/src/features/authentication/application/faceid_sharedpref.dart';
+import 'package:purus_lern_app/src/features/authentication/application/go_to_biometric_settings.dart';
 import 'package:purus_lern_app/src/features/authentication/application/local_auth_service.dart';
+import 'package:purus_lern_app/src/features/authentication/application/logout.dart';
 import 'package:purus_lern_app/src/features/authentication/application/onboarding_status.dart';
-import 'package:purus_lern_app/src/features/authentication/application/stay_logged_in.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:purus_lern_app/src/widgets/my_snack_bar.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -24,65 +21,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final LocalAuthService _localAuthService = LocalAuthService();
   bool _isAuthenticating = false;
 
-  void _restartApp() {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const PurusMain()),
-      (Route<dynamic> route) => false,
-    );
-  }
-
   Future<void> _checkBiometrics() async {
-    setState(() {
-      _isAuthenticating = true;
-    });
-    bool authenticated = await _localAuthService.authenticateUser();
-    setState(() {
-      _isAuthenticating = false;
-    });
-    if (authenticated) {
-      if (mounted) {
-        setState(() {
-          updateFaceId(true);
-        });
-        if (mounted) {
-          mySnackbar(context,
-              "Biometrisches Anmeldeverfahren erfolgreich eingerichtet.");
-        }
-      }
-    } else {
+    try {
       setState(() {
-        updateFaceId(false);
+        _isAuthenticating = true;
       });
-      await checkBiometricAvailability();
-      if (!isBiometricAvailable) {
-        setState(() {});
+      bool authenticated = await _localAuthService.authenticateUser();
+      setState(() {
+        _isAuthenticating = false;
+      });
+      if (authenticated) {
         if (mounted) {
-          mySnackbar(context,
-              "Erlaubnis für biometrisches Anmeldeverfahren fehlt. Sie können es jederzeit nach Erlaubniserteilung in den Einstellungen einrichten.");
+          setState(() {
+            updateFaceId(true);
+          });
+          if (mounted) {
+            mySnackbar(context,
+                "Biometrisches Anmeldeverfahren erfolgreich eingerichtet.");
+          }
         }
       } else {
-        if (mounted) {
-          mySnackbar(context,
-              "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
+        setState(() {
+          updateFaceId(false);
+        });
+        await checkBiometricAvailability();
+        if (!isBiometricAvailable) {
+          setState(() {});
+          if (mounted) {
+            mySnackbar(context,
+                "Erlaubnis für biometrisches Anmeldeverfahren fehlt. Sie können es jederzeit nach Erlaubniserteilung in den Einstellungen einrichten.");
+          }
+        } else {
+          if (mounted) {
+            mySnackbar(context,
+                "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
+          }
         }
       }
-    }
-  }
-
-  Future<void> openBiometricSettings() async {
-    if (Theme.of(context).platform == TargetPlatform.android) {
-      const url = 'package:com.android.settings.BIOMETRIC_ENROLL';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        await launch('package:com.android.settings');
-      }
-    } else if (Theme.of(context).platform == TargetPlatform.iOS) {
-      const url = 'App-Prefs:root=FACE_ID';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        await launch('App-Prefs:root');
+    } catch (e) {
+      debugPrint(e.toString());
+      if (mounted) {
+        mySnackbar(context,
+            "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
       }
     }
   }
@@ -96,16 +76,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Column(
             children: [
               TextButton(
-                  onPressed: () async {
-                    await StayLoggedIn().logout();
-                    if (mounted) {
-                      await initializeApp();
-                    }
-                    if (mounted) {
-                      _restartApp();
-                    }
+                  onPressed: () {
+                    goToBiometricSettings(context);
                   },
-                  child: const Text("Logut")),
+                  child: Text("erlaubnis für biometrische anmeldung")),
+              TextButton(
+                  onPressed: () {
+                    logout(context);
+                  },
+                  child: const Text("Logout")),
               TextButton(
                   onPressed: () {}, child: const Text("Show Onboarding")),
               TextButton(
@@ -122,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                   child: const Text("Reset faceid Dont ask me again")),
               SizedBox(
-                height: 200,
+                height: 300,
                 width: 200,
                 child: isBiometricAvailable
                     ? isFaceIdConfigured
@@ -191,12 +170,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     : isDeviceSupportedForBiometric
                         ? TextButton(
                             onPressed: () {
-                              openBiometricSettings();
+                              goToBiometricSettings(context);
                             },
                             child: const Text(
                                 "Erlaubnis für Biometrisches Anmeldeverfahren erteilen"))
-                        : const Text(
-                            "Ihr Gerät oder die Platform ist für Biometrische Anmeldeverfahren nicht geeignet"),
+                        : Column(
+                            children: [
+                              Text(
+                                  "Ihr Gerät oder die Platform ist für Biometrische Anmeldeverfahren nicht geeignet oder ausgeschaltet."),
+                              TextButton(
+                                  onPressed: () {
+                                    goToBiometricSettings(context);
+                                  },
+                                  child: const Text("Zu den Einstellungen"))
+                            ],
+                          ),
               ),
             ],
           ),

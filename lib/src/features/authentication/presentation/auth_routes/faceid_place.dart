@@ -52,16 +52,23 @@ class _FaceidPlaceState extends State<FaceidPlace>
   }
 
   Future<void> _checkBiometrics() async {
-    setState(() {
-      _isAuthenticating = true;
-    });
-    bool authenticated = await _localAuthService.authenticateUser();
-    setState(() {
-      _isAuthenticating = false;
-    });
-    if (authenticated) {
-      _routeToHomeScreen();
-    } else {
+    try {
+      setState(() {
+        _isAuthenticating = true;
+      });
+      bool authenticated = await _localAuthService.authenticateUser();
+      setState(() {
+        _isAuthenticating = false;
+      });
+      if (authenticated) {
+        _routeToHomeScreen();
+      } else {
+        if (mounted) {
+          mySnackbar(context, "Fehler beim biometrischen Anmeldeverfahren.");
+        }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
       if (mounted) {
         mySnackbar(context, "Fehler beim biometrischen Anmeldeverfahren.");
       }

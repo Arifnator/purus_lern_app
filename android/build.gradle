@@ -1,7 +1,23 @@
+// android/build.gradle
+
+buildscript {
+    ext.kotlin_version = '2.0.20' // Set this to the latest Kotlin version
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.0' // Ensure this matches your Android Gradle Plugin version
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.10' // Update if needed
+    }
+}
+
 allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://storage.googleapis.com/download.flutter.io' } // Ensure this is included
     }
 }
 

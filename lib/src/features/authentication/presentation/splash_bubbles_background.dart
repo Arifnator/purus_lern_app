@@ -108,7 +108,7 @@ class BubblesPainter extends CustomPainter {
       bubble.update(animationValue);
       final paint = Paint()
         ..color = purusGreen.withOpacity(bubble.opacity)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 70.0);
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 80.0);
       final x = bubble.x * size.width;
       final y = bubble.y * size.height;
       canvas.drawCircle(Offset(x, y), bubble.radius, paint);

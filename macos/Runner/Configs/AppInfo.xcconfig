@@ -8,7 +8,7 @@
 PRODUCT_NAME = purus_lern_app
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.purusLernApp
+PRODUCT_BUNDLE_IDENTIFIER = com.purus.lernapp
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2024 com.example. All rights reserved.

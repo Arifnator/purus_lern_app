@@ -23,7 +23,7 @@ import "package:purus_lern_app/src/widgets/my_textfield.dart";
 // Bio ikiye böl: bir system compatible(testen et biriyle?) + erlaubt
 // faceid ve angemeldet bleiben olursa firebase auth kalici olsun: anmeldedaten in sharedpref fln!
 // facid nutzen yapinca angemeldet bleiben olmasin?/faceid sadece angemeldet bleiben yerine gecsin???
-// log ekle
+// log ekle + handgi platofrm ve facid fln?
 
 class LoginPlace extends StatefulWidget {
   const LoginPlace({super.key, required this.transitionToRoute});
@@ -282,37 +282,43 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
   }
 
   Future<void> _checkBiometricsAfterLogin() async {
-    setState(() {
-      _isAuthenticating = true;
-    });
-    bool authenticated = await _localAuthService.authenticateUser();
-    setState(() {
-      _isAuthenticating = false;
-    });
-    if (authenticated) {
-      if (mounted) {
+    try {
+      setState(() {
+        _isAuthenticating = true;
+      });
+      bool authenticated = await _localAuthService.authenticateUser();
+      setState(() {
+        _isAuthenticating = false;
+      });
+      if (authenticated) {
         _routeToHomeScreen();
         updateFaceId(true);
         if (mounted) {
           mySnackbar(context,
               "Biometrisches Anmeldeverfahren erfolgreich eingerichtet.");
         }
-      }
-    } else {
-      _routeToHomeScreen();
-      updateFaceId(false);
-      await checkBiometricAvailability();
-      if (!isBiometricAvailable) {
-        setState(() {});
-        if (mounted) {
-          mySnackbar(context,
-              "Erlaubnis für biometrisches Anmeldeverfahren fehlt. Sie können es jederzeit nach Erlaubniserteilung in den Einstellungen einrichten.");
-        } else {
+      } else {
+        _routeToHomeScreen();
+        updateFaceId(false);
+        await checkBiometricAvailability();
+        if (!isBiometricAvailable) {
+          setState(() {});
           if (mounted) {
             mySnackbar(context,
-                "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
+                "Erlaubnis für biometrisches Anmeldeverfahren fehlt. Sie können es jederzeit nach Erlaubniserteilung in den Einstellungen einrichten.");
+          } else {
+            if (mounted) {
+              mySnackbar(context,
+                  "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
+            }
           }
         }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      if (mounted) {
+        mySnackbar(context,
+            "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
       }
     }
   }
@@ -362,37 +368,45 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
   }
 
   Future<void> _checkBiometrics() async {
-    setState(() {
-      _isAuthenticating = true;
-    });
-    bool authenticated = await _localAuthService.authenticateUser();
-    setState(() {
-      _isAuthenticating = false;
-    });
-    if (authenticated) {
+    try {
       setState(() {
-        _isConfigFaceidDone = true;
+        _isAuthenticating = true;
       });
+
+      bool authenticated = await _localAuthService.authenticateUser();
+
+      setState(() {
+        _isAuthenticating = false;
+        _isConfigFaceidDone = authenticated;
+      });
+
+      if (authenticated) {
+        if (mounted) {
+          mySnackbar(
+            context,
+            "Nach erfolgreicher Anmeldung ist das Biometrische Anmeldeverfahren automatisch eingerichtet.",
+          );
+        }
+      } else {
+        await checkBiometricAvailability();
+
+        if (!isBiometricAvailable && mounted) {
+          mySnackbar(
+            context,
+            "Erlaubnis für biometrisches Anmeldeverfahren fehlt. Sie können es jederzeit nach Erlaubniserteilung in den Einstellungen einrichten.",
+          );
+        } else if (mounted) {
+          mySnackbar(
+            context,
+            "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.",
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
       if (mounted) {
         mySnackbar(context,
-            "Nach erfolgreicher Anmeldung ist das Biometrische Anmeldeverfahren automatisch eingerichtet.");
-      }
-    } else {
-      setState(() {
-        _isConfigFaceidDone = false;
-      });
-      await checkBiometricAvailability();
-      if (!isBiometricAvailable) {
-        setState(() {});
-        if (mounted) {
-          mySnackbar(context,
-              "Erlaubnis für biometrisches Anmeldeverfahren fehlt. Sie können es jederzeit nach Erlaubniserteilung in den Einstellungen einrichten.");
-        } else {
-          if (mounted) {
-            mySnackbar(context,
-                "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
-          }
-        }
+            "Fehler bei der Einrichtung. Sie können es jederzeit in den Einstellungen einrichten.");
       }
     }
   }
@@ -473,7 +487,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                       focusNode: _usernameNode,
                       strokeColor: _myTextfieldUsernameStrokeColor,
                       keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.continueAction,
+                      textInputAction: TextInputAction.next,
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(RegExp(r'\s')),
                       ],
