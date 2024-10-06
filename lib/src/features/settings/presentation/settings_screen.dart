@@ -9,7 +9,7 @@ import 'package:purus_lern_app/src/features/authentication/application/local_aut
 import 'package:purus_lern_app/src/features/authentication/application/local_auth/local_auth_service.dart';
 import 'package:purus_lern_app/src/features/authentication/application/local_auth/refresh_biometric_state.dart';
 import 'package:purus_lern_app/src/features/authentication/application/logout.dart';
-import 'package:purus_lern_app/src/features/authentication/application/onboarding_status.dart';
+import 'package:purus_lern_app/src/features/authentication/application/onboarding_status_sharedpref.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 import 'package:purus_lern_app/src/widgets/my_snack_bar.dart';
 
@@ -106,7 +106,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               TextButton(
                   onPressed: () async {
                     isOnboardingNotComplete = true;
-                    await OnboardingStatus().setOnboardingStatus(false);
+                    await OnboardingStatusSharedpref()
+                        .setOnboardingStatusSharedpref(false);
                   },
                   child: const Text("Reset Onboarding")),
               TextButton(

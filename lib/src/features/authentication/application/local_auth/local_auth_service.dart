@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:purus_lern_app/src/core/app_info.dart';
 
 class LocalAuthService {
   final LocalAuthentication _auth = LocalAuthentication();
 
   Future<bool> isDeviceSupported() async {
-    return await _auth.isDeviceSupported();
+    if (currentPlatform != "Web" && currentPlatform != "Unknown") {
+      return await _auth.isDeviceSupported();
+    } else {
+      return false;
+    }
   }
 
   Future<bool> isBiometricAvailable() async {
-    try {
-      return await _auth.canCheckBiometrics && await _auth.isDeviceSupported();
-    } catch (e) {
-      debugPrint(e.toString());
+    if (currentPlatform != "Web" && currentPlatform != "Unknown") {
+      try {
+        return await _auth.canCheckBiometrics &&
+            await _auth.isDeviceSupported();
+      } catch (e) {
+        debugPrint(e.toString());
+        return false;
+      }
+    } else {
       return false;
     }
   }

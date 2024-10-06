@@ -1,5 +1,5 @@
 flutter_launcher_icons:
-  android: true
+  android: false
   ios: true
   remove_alpha_ios: true
   image_path: "assets/app_icons/gross_dunkelgrün.png"

@@ -1,19 +1,24 @@
+import 'package:purus_lern_app/src/core/app_info.dart';
 import 'package:purus_lern_app/src/core/firebase/firebase_analytics/analytics_instance.dart';
 
 Future<void> logOnboardingDone() async {
-  await analytics.logEvent(
-    name: 'onboarding_done',
-    parameters: {
-      'description': 'Onboarding has been completed',
-    },
-  );
+  if (currentPlatform != "Windows" && currentPlatform != "Unknown") {
+    await analytics.logEvent(
+      name: 'onboarding_done',
+      parameters: {
+        'description': 'Onboarding has been completed',
+      },
+    );
+  }
 }
 
 Future<void> logOnboardingSkipped() async {
-  await analytics.logEvent(
-    name: 'onboarding_skipped',
-    parameters: {
-      'description': 'Onboarding has been skipped',
-    },
-  );
+  if (currentPlatform != "Windows" && currentPlatform != "Unknown") {
+    await analytics.logEvent(
+      name: 'onboarding_skipped',
+      parameters: {
+        'description': 'Onboarding has been skipped',
+      },
+    );
+  }
 }

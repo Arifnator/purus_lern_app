@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/main.dart';
 import 'package:purus_lern_app/src/core/main_initialize.dart';
-import 'package:purus_lern_app/src/features/authentication/application/stay_logged_in.dart';
+import 'package:purus_lern_app/src/features/authentication/application/stay_logged_in_sharedpref.dart';
 
 void logout(BuildContext context) {
-  StayLoggedIn().logout();
+  StayLoggedInSharedpref().logout();
   initializeApp();
 
   Navigator.of(context).pushAndRemoveUntil(

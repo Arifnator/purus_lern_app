@@ -11,7 +11,7 @@ import "package:purus_lern_app/src/features/authentication/application/faceid_do
 import "package:purus_lern_app/src/features/authentication/application/faceid_sharedpref.dart";
 import "package:purus_lern_app/src/features/authentication/application/local_auth/check_biometric_availability.dart";
 import "package:purus_lern_app/src/features/authentication/application/local_auth/local_auth_service.dart";
-import "package:purus_lern_app/src/features/authentication/application/stay_logged_in.dart";
+import "package:purus_lern_app/src/features/authentication/application/stay_logged_in_sharedpref.dart";
 import "package:purus_lern_app/src/features/authentication/data/login_conditions.dart";
 import "package:purus_lern_app/src/widgets/my_animated_checkmark.dart";
 import "package:purus_lern_app/src/widgets/my_button.dart";
@@ -119,7 +119,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
 
       if (_stayLoggedBox) {
         isLoggedIn = true;
-        StayLoggedIn().setLoginStatus(_stayLoggedBox);
+        StayLoggedInSharedpref().setLoginStatus(_stayLoggedBox);
       }
 
       if (isBiometricAvailable.value &&
