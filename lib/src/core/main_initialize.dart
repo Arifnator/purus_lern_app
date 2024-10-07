@@ -4,12 +4,12 @@ import 'package:purus_lern_app/src/core/firebase/initialize_firebase.dart';
 import 'package:purus_lern_app/src/core/get_app_info.dart';
 import 'package:purus_lern_app/src/core/get_platform_as_string.dart';
 import 'package:purus_lern_app/src/core/presentation/rive_manager.dart';
-import 'package:purus_lern_app/src/features/authentication/application/faceid_dont_ask_me_again_sharedpred.dart';
-import 'package:purus_lern_app/src/features/authentication/application/faceid_sharedpref.dart';
+import 'package:purus_lern_app/src/features/authentication/data/shared_pref/faceid_dont_ask_me_again_sharedpred.dart';
+import 'package:purus_lern_app/src/features/authentication/data/shared_pref/faceid_sharedpref.dart';
 import 'package:purus_lern_app/src/features/authentication/application/local_auth/check_biometric_availability.dart';
 import 'package:purus_lern_app/src/features/authentication/application/local_auth/local_auth_service.dart';
-import 'package:purus_lern_app/src/features/authentication/application/onboarding_status_sharedpref.dart';
-import 'package:purus_lern_app/src/features/authentication/application/stay_logged_in_sharedpref.dart';
+import 'package:purus_lern_app/src/features/authentication/data/shared_pref/onboarding_status_sharedpref.dart';
+import 'package:purus_lern_app/src/features/authentication/data/shared_pref/stay_logged_in_sharedpref.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
 
 Future<void> initializeApp() async {

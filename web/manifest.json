@@ -3,7 +3,7 @@
     "short_name": "Purus Lern App",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#008159",
+    "background_color": "#ffffff",
     "theme_color": "#008159",
     "description": "Pflegehelfer Lern App, von Purus Medical Academy Berlin.",
     "orientation": "portrait-primary",
