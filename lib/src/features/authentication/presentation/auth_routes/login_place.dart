@@ -7,11 +7,11 @@ import "package:purus_lern_app/src/config/palette.dart";
 import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_errors.dart";
 import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_login.dart";
 import "package:purus_lern_app/src/core/presentation/home_screen.dart";
-import "package:purus_lern_app/src/features/authentication/application/faceid_dont_ask_me_again_sharedpred.dart";
-import "package:purus_lern_app/src/features/authentication/application/faceid_sharedpref.dart";
+import "package:purus_lern_app/src/features/authentication/data/shared_pref/faceid_dont_ask_me_again_sharedpred.dart";
+import "package:purus_lern_app/src/features/authentication/data/shared_pref/faceid_sharedpref.dart";
 import "package:purus_lern_app/src/features/authentication/application/local_auth/check_biometric_availability.dart";
 import "package:purus_lern_app/src/features/authentication/application/local_auth/local_auth_service.dart";
-import "package:purus_lern_app/src/features/authentication/application/stay_logged_in.dart";
+import "package:purus_lern_app/src/features/authentication/data/shared_pref/stay_logged_in_sharedpref.dart";
 import "package:purus_lern_app/src/features/authentication/data/login_conditions.dart";
 import "package:purus_lern_app/src/widgets/my_animated_checkmark.dart";
 import "package:purus_lern_app/src/widgets/my_button.dart";
@@ -119,7 +119,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
 
       if (_stayLoggedBox) {
         isLoggedIn = true;
-        StayLoggedIn().setLoginStatus(_stayLoggedBox);
+        StayLoggedInSharedpref().setLoginStatus(_stayLoggedBox);
       }
 
       if (isBiometricAvailable.value &&
