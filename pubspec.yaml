@@ -49,6 +49,7 @@ dependencies:
   local_auth: ^2.3.0
   app_settings: ^5.1.1
   package_info_plus: ^8.0.2
+  scaled_app: ^2.3.0
   # flutter_native_splash: ^2.4.1
   # url_launcher: ^6.3.0
   # permission_handler: ^11.3.1

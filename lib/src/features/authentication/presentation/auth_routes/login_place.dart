@@ -448,303 +448,310 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
     // bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0.0;
 
     return SizedBox.expand(
-        child: Stack(
-      children: [
-        Positioned(
-          top: 0,
-          child: SizedBox(
-            width: 393,
-            child:
-                // Form(
-                //   key: _formKey,
-                //   child:
-                SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 27.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 45,
-                      child: Center(
-                        child: Text(
-                          _alertText,
-                          overflow: TextOverflow.fade,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: _alertTextColor,
+        child: Center(
+      child: Stack(
+        children: [
+          Center(
+            child: SizedBox(
+              width: 393,
+              child:
+                  // Form(
+                  //   key: _formKey,
+                  //   child:
+                  SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 27.0),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        height: 45,
+                        child: Center(
+                          child: Text(
+                            _alertText,
+                            overflow: TextOverflow.fade,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: _alertTextColor,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: _columnSpacing,
-                    ),
-                    MyTextfield(
-                      controller: _usernameController,
-                      hintText: "Benutzername oder E-Mail",
-                      focusNode: _usernameNode,
-                      strokeColor: _myTextfieldUsernameStrokeColor,
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.deny(RegExp(r'\s')),
-                      ],
-                      // icon: const Icon(Icons.email, color: purusGreen),
-                      onSubmitted: (p0) {
-                        FocusScope.of(context).requestFocus(_passwordNode);
-                      },
-                    ),
-                    SizedBox(
-                      height: _columnSpacing,
-                    ),
-                    MyTextfield(
-                      controller: _passwordController,
-                      hintText: "Passwort",
-                      focusNode: _passwordNode,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.deny(RegExp(r'\s')),
-                      ],
-                      obscureText: _obscureText,
-                      strokeColor: _myTextfieldPassswordStrokeColor,
-                      keyboardType: TextInputType.visiblePassword,
-                      suffix: GestureDetector(
-                        onTapDown: (_) {
-                          setState(() {
-                            _obscureText = false;
-                            _showHideIcon();
-                          });
-                        },
-                        onTapUp: (_) {
-                          setState(() {
-                            _obscureText = true;
-                            _showHideIcon();
-                          });
-                        },
-                        child: SFIcon(
-                          _showHideIcon(),
-                          color: purusGrey,
-                          fontSize: 16,
-                        ),
+                      SizedBox(
+                        height: _columnSpacing,
                       ),
-                      textInputAction: TextInputAction.done,
-                      // maxLength: 20,
-                      onSubmitted: (p0) {
-                        _validation();
-                        // FocusManager.instance.primaryFocus?.unfocus();
-                      },
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return "Please enter some text";
-                      //   }
-                      //   return "jkdejd";
-                      // },
-                    ),
-                    SizedBox(
-                      height: _columnSpacing,
-                    ),
-                    SizedBox(
-                      child: Row(
+                      MyTextfield(
+                        controller: _usernameController,
+                        hintText: "Benutzername oder E-Mail",
+                        focusNode: _usernameNode,
+                        strokeColor: _myTextfieldUsernameStrokeColor,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                        ],
+                        // icon: const Icon(Icons.email, color: purusGreen),
+                        onSubmitted: (p0) {
+                          FocusScope.of(context).requestFocus(_passwordNode);
+                        },
+                      ),
+                      SizedBox(
+                        height: _columnSpacing,
+                      ),
+                      MyTextfield(
+                        controller: _passwordController,
+                        hintText: "Passwort",
+                        focusNode: _passwordNode,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                        ],
+                        obscureText: _obscureText,
+                        strokeColor: _myTextfieldPassswordStrokeColor,
+                        keyboardType: TextInputType.visiblePassword,
+                        suffix: GestureDetector(
+                          onTapDown: (_) {
+                            setState(() {
+                              _obscureText = false;
+                              _showHideIcon();
+                            });
+                          },
+                          onTapUp: (_) {
+                            setState(() {
+                              _obscureText = true;
+                              _showHideIcon();
+                            });
+                          },
+                          child: SFIcon(
+                            _showHideIcon(),
+                            color: purusGrey,
+                            fontSize: 16,
+                          ),
+                        ),
+                        textInputAction: TextInputAction.done,
+                        // maxLength: 20,
+                        onSubmitted: (p0) {
+                          _validation();
+                          // FocusManager.instance.primaryFocus?.unfocus();
+                        },
+                        // validator: (value) {
+                        //   if (value == null || value.isEmpty) {
+                        //     return "Please enter some text";
+                        //   }
+                        //   return "jkdejd";
+                        // },
+                      ),
+                      // SizedBox(
+                      //   height: _columnSpacing,
+                      // ),
+                      Row(
                         children: [
-                          const SizedBox(
-                            width: 6,
-                          ),
                           GestureDetector(
+                            behavior: HitTestBehavior.opaque,
                             onTap: () {
                               setState(() {
                                 _stayLoggedBox = !_stayLoggedBox;
                               });
                             },
-                            child: _stayLoggedBox
-                                ? const SFIcon(
-                                    SFIcons.sf_checkmark_square_fill,
-                                    color: Colors.white,
-                                    fontSize: 19,
-                                  )
-                                : const SFIcon(
-                                    SFIcons.sf_square,
-                                    color: Colors.white,
-                                    fontSize: 19,
+                            child: SizedBox(
+                              height: 19 + _columnSpacing * 2,
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 7,
                                   ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _stayLoggedBox = !_stayLoggedBox;
-                              });
-                            },
-                            child: const Text(
-                              "Angemeldet bleiben",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700),
+                                  _stayLoggedBox
+                                      ? const SFIcon(
+                                          SFIcons.sf_checkmark_square_fill,
+                                          color: Colors.white,
+                                          fontSize: 19,
+                                        )
+                                      : const SFIcon(
+                                          SFIcons.sf_square,
+                                          color: Colors.white,
+                                          fontSize: 19,
+                                        ),
+                                  const SizedBox(
+                                    width: 7,
+                                  ),
+                                  const Text(
+                                    "Angemeldet bleiben",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           const Expanded(child: SizedBox()),
                           GestureDetector(
+                            behavior: HitTestBehavior.opaque,
                             onTap: () {
                               setState(() {
                                 widget.transitionToRoute("ForgotPassword");
                               });
                             },
-                            child: const Text(
-                              "Passwort vergessen?",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700),
+                            child: SizedBox(
+                              height: 19 + _columnSpacing * 2,
+                              child: Center(
+                                child: const Text(
+                                  "Passwort vergessen?",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(
-                            width: 5,
+                            width: 7,
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(
-                      height: _columnSpacing,
-                    ),
-                    AnimatedOpacity(
-                      opacity: _showSecondAnimation ? 1.0 : 0.0,
-                      duration: const Duration(milliseconds: 500),
-                      child: Column(
-                        children: [
-                          MyButton(
-                            onTap: () {
-                              _validation();
-                              FocusManager.instance.primaryFocus?.unfocus();
-                            },
-                            text: "Anmelden",
-                          ),
-                          SizedBox(
-                            height: _columnSpacing,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0),
-                                    child: const Divider(
+                      // SizedBox(
+                      //   height: _columnSpacing,
+                      // ),
+                      AnimatedOpacity(
+                        opacity: _showSecondAnimation ? 1.0 : 0.0,
+                        duration: const Duration(milliseconds: 500),
+                        child: Column(
+                          children: [
+                            MyButton(
+                              onTap: () {
+                                _validation();
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              },
+                              text: "Anmelden",
+                            ),
+                            SizedBox(
+                              height: _columnSpacing,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 20.0, right: 20.0),
+                                      child: const Divider(
+                                        color: Colors.white,
+                                        thickness: 0.7,
+                                      )),
+                                ),
+                                const Text("oder",
+                                    style: TextStyle(
                                       color: Colors.white,
-                                      thickness: 0.7,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w700,
                                     )),
-                              ),
-                              const Text("oder",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                  )),
-                              Expanded(
-                                child: Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 20.0, right: 20),
-                                    child: const Divider(
-                                      color: Colors.white,
-                                      thickness: 0.7,
-                                    )),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: _columnSpacing,
-                          ),
-                          MyButton(
-                            onTap: () {
-                              widget.transitionToRoute("Registration");
-                            },
-                            text: "Registrieren",
-                            bgColor: Colors.white,
-                            textColor: purusGreen,
-                            strokeColor: borderStrokeGrey,
-                          ),
-                          SizedBox(
-                            height: _columnSpacing,
-                          ),
-                          // if (!isKeyboardVisible)
-                          ValueListenableBuilder<bool>(
-                            valueListenable: isBiometricAvailable,
-                            builder: (context, value, child) {
-                              if (value) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    if (isFaceIdConfigured && isLoggedIn) {
-                                      _checkBiometricsAfterLogin();
-                                    } else {
-                                      _askConfigFaceId();
-                                    }
-                                  },
-                                  child: Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      ScaleTransition(
-                                        scale: _scaleAnimation,
-                                        child: SizedBox(
-                                          height: 90,
-                                          child: Image.asset(
-                                              "assets/images/FaceID.png"),
-                                        ),
-                                      ),
-                                      _isConfigFaceidDone
-                                          ? const Positioned(
-                                              top: -5,
-                                              right: 0,
-                                              child: MyAnimatedCheckmark())
-                                          : const SizedBox(),
-                                      const Positioned(
-                                        bottom: 7,
-                                        left: 23,
-                                        child: SizedBox(
-                                          child: Text(
-                                            "Face ID",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                            ),
+                                Expanded(
+                                  child: Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 20.0, right: 20),
+                                      child: const Divider(
+                                        color: Colors.white,
+                                        thickness: 0.7,
+                                      )),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: _columnSpacing,
+                            ),
+                            MyButton(
+                              onTap: () {
+                                widget.transitionToRoute("Registration");
+                              },
+                              text: "Registrieren",
+                              bgColor: Colors.white,
+                              textColor: purusGreen,
+                              strokeColor: borderStrokeGrey,
+                            ),
+                            SizedBox(
+                              height: _columnSpacing,
+                            ),
+                            // if (!isKeyboardVisible)
+                            ValueListenableBuilder<bool>(
+                              valueListenable: isBiometricAvailable,
+                              builder: (context, value, child) {
+                                if (value) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      if (isFaceIdConfigured && isLoggedIn) {
+                                        _checkBiometricsAfterLogin();
+                                      } else {
+                                        _askConfigFaceId();
+                                      }
+                                    },
+                                    child: Stack(
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        ScaleTransition(
+                                          scale: _scaleAnimation,
+                                          child: SizedBox(
+                                            height: 90,
+                                            child: Image.asset(
+                                                "assets/images/FaceID.png"),
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              } else {
-                                return SizedBox(
-                                  height: 90,
-                                );
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                                        _isConfigFaceidDone
+                                            ? const Positioned(
+                                                top: -5,
+                                                right: 0,
+                                                child: MyAnimatedCheckmark())
+                                            : const SizedBox(),
+                                        const Positioned(
+                                          bottom: 7,
+                                          left: 23,
+                                          child: SizedBox(
+                                            child: Text(
+                                              "Face ID",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                } else {
+                                  return SizedBox(
+                                    height: 90,
+                                  );
+                                }
+                              },
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        if (_isAuthenticating)
-          Positioned(
-            top: 0,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-              child: Container(
-                color: Colors.black.withOpacity(0.3),
+          if (_isAuthenticating)
+            Positioned(
+              top: 0,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Container(
+                  color: Colors.black.withOpacity(0.3),
+                ),
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     )
         //     ),
         );
