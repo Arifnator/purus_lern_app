@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:purus_lern_app/src/core/app_info.dart';
+import 'package:purus_lern_app/src/data/app_info.dart';
 
 class LocalAuthService {
   final LocalAuthentication _auth = LocalAuthentication();

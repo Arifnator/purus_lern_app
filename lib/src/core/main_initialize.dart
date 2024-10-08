@@ -1,4 +1,4 @@
-import 'package:purus_lern_app/src/core/app_info.dart';
+import 'package:purus_lern_app/src/data/app_info.dart';
 import 'package:purus_lern_app/src/core/firebase/firebase_analytics/log_app_start_event.dart';
 import 'package:purus_lern_app/src/core/firebase/initialize_firebase.dart';
 import 'package:purus_lern_app/src/core/get_app_info.dart';

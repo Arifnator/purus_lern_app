@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sficon/flutter_sficon.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
+import 'package:purus_lern_app/src/data/app_info.dart';
 import 'package:purus_lern_app/src/widgets/menu_cards_widget.dart';
 import 'package:purus_lern_app/src/features/mainmenu/data/menu_card_list.dart';
 import 'package:purus_lern_app/src/features/mainmenu/presentation/widgets/preview_video_widget.dart';
@@ -115,22 +116,37 @@ class MainmenuScreen extends StatelessWidget {
                             child: Stack(
                               fit: StackFit.expand,
                               children: [
-                                const Opacity(
-                                    opacity: 0.5, child: PreviewVideoWidget()),
+                                currentPlatform == "Windows" ||
+                                        currentPlatform == "Unknown"
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(9.0),
+                                        child: Center(
+                                            child: Text(
+                                          "Videovorschau wird in dieser Platform leider nicht unterstüzt.",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 10),
+                                        )),
+                                      )
+                                    : const Opacity(
+                                        opacity: 0.5,
+                                        child: PreviewVideoWidget()),
                                 Opacity(
                                   opacity: 0.5,
                                   child: Container(
                                     color: purusLightGreen,
                                   ),
                                 ),
-                                const Center(
-                                  child: SFIcon(
-                                    SFIcons.sf_play_fill,
-                                    // SFIcons.sf_play_circle_fill,
-                                    fontSize: 50,
-                                    color: purusGreen,
-                                  ),
-                                ),
+                                currentPlatform == "Windows" ||
+                                        currentPlatform == "Unknown"
+                                    ? SizedBox()
+                                    : const Center(
+                                        child: SFIcon(
+                                          SFIcons.sf_play_fill,
+                                          // SFIcons.sf_play_circle_fill,
+                                          fontSize: 50,
+                                          color: purusGreen,
+                                        ),
+                                      ),
                               ],
                             ),
                           ),
