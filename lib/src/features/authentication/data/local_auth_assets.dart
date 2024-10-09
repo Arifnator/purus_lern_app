@@ -6,5 +6,5 @@ Map<String, String> localAuthAssets = {
   // "Android Face Recognition": "assets/local_auth/androidface.svg",
   "macOS Touch ID": "assets/local_auth/macostouchid.svg",
   "Windows Fingerprint": "assets/local_auth/windowsfinger.svg",
-  "Biometrics ist nicht aktiv": "assets/local_auth/securitysettings.svg",
+  "Biometrics sind nicht aktiv": "assets/local_auth/securitysettings.svg",
 };

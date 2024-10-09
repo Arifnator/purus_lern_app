@@ -50,7 +50,8 @@ class LocalAuthService {
             return "Touch ID";
           }
         } else if (currentPlatform == "Android") {
-          if (availableBiometrics.contains(BiometricType.strong) || availableBiometrics.contains(BiometricType.weak)) {
+          if (availableBiometrics.contains(BiometricType.strong) ||
+              availableBiometrics.contains(BiometricType.weak)) {
             return "Android Biometrics";
           }
           // if (availableBiometrics.contains(BiometricType.fingerprint)) {
@@ -69,13 +70,13 @@ class LocalAuthService {
           }
         }
 
-        return "Biometrics ist nicht aktiv";
+        return "Biometrics sind nicht aktiv";
       } on PlatformException catch (e) {
         debugPrint("Error: $e");
-        return "Biometrics ist nicht aktiv";
+        return "Biometrics sind nicht aktiv";
       }
     } else {
-      return "Biometrics ist nicht aktiv";
+      return "Biometrics sind nicht aktiv";
     }
   }
 

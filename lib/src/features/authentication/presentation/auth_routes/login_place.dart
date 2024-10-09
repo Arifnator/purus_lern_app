@@ -473,7 +473,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
 
   Future<void> _refreshBiometricState() async {
     await refreshBiometricState(context, false, false);
-    if (availableBiometricsString == "Biometrics ist nicht aktiv") {
+    if (availableBiometricsString == "Biometrics sind nicht aktiv") {
       _isConfigBiometricDone = false;
     }
     setState(() {});
@@ -777,7 +777,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                                                     child: ScaleTransition(
                                                       scale: _scaleAnimation,
                                                       child: availableBiometricsString !=
-                                                              "Biometrics ist nicht aktiv"
+                                                              "Biometrics sind nicht aktiv"
                                                           ? SvgPicture.asset(
                                                               localAuthAssets[
                                                                   availableBiometricsString]!,
@@ -813,9 +813,9 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                                                   alignment: Alignment.center,
                                                   child: Text(
                                                     availableBiometricsString !=
-                                                            "Biometrics ist nicht aktiv"
+                                                            "Biometrics sind nicht aktiv"
                                                         ? "${isBiometricConfigured ? "Mit " : ""}$availableBiometricsString ${isBiometricConfigured ? "Anmelden" : _isConfigBiometricDone ? "ist Eingestellt" : "Einstellen"}"
-                                                        : "Biometrics ist nicht aktiv",
+                                                        : "Biometrics sind nicht aktiv",
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 10,
