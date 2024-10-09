@@ -1,12 +1,16 @@
+import "dart:async";
 import "dart:ui";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_sficon/flutter_sficon.dart";
+import "package:flutter_svg/svg.dart";
 import "package:purus_lern_app/src/config/palette.dart";
 import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_errors.dart";
 import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_login.dart";
 import "package:purus_lern_app/src/core/presentation/home_screen.dart";
+import "package:purus_lern_app/src/features/authentication/application/local_auth/refresh_biometric_state.dart";
+import "package:purus_lern_app/src/features/authentication/data/local_auth_assets.dart";
 import "package:purus_lern_app/src/features/authentication/data/shared_pref/biometric_dont_ask_me_again_sharedpred.dart";
 import "package:purus_lern_app/src/features/authentication/data/shared_pref/biometric_sharedpref.dart";
 import "package:purus_lern_app/src/features/authentication/application/local_auth/check_biometric_availability.dart";
@@ -15,6 +19,7 @@ import "package:purus_lern_app/src/features/authentication/data/shared_pref/stay
 import "package:purus_lern_app/src/features/authentication/data/login_conditions.dart";
 import "package:purus_lern_app/src/widgets/my_animated_checkmark.dart";
 import "package:purus_lern_app/src/widgets/my_button.dart";
+import "package:purus_lern_app/src/widgets/my_rotating_svg.dart";
 import "package:purus_lern_app/src/widgets/my_snack_bar.dart";
 import "package:purus_lern_app/src/widgets/my_textfield.dart";
 // import "package:scaled_app/scaled_app.dart";
@@ -70,9 +75,15 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
   bool _isConfigBiometricDone = false;
   bool _dontAskMeAgain = false;
 
+  Timer? _updateAvailableBioStringTimer;
+
   @override
   void initState() {
     super.initState();
+    _updateAvailableBioStringTimer =
+        Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      _refreshBiometricState();
+    });
 
     _animationController = AnimationController(
       duration: const Duration(seconds: 2),
@@ -327,13 +338,15 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
     }
   }
 
-  void _askConfigBiometric() {
+  void _askConfigBiometric(
+    BuildContext context,
+  ) {
     setState(() {
       _isAuthenticating = true;
     });
     showCupertinoDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return CupertinoAlertDialog(
           content: const Text(
               "Möchten Sie biometrisches Anmeldeverfahren einrichten?"),
@@ -358,7 +371,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
             CupertinoDialogAction(
               onPressed: () {
                 Navigator.pop(context);
-                _checkBiometrics();
+                _checkBiometricsToConfig();
               },
               child: const Text(
                 "Ja",
@@ -371,7 +384,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
     );
   }
 
-  Future<void> _checkBiometrics() async {
+  Future<void> _checkBiometricsToConfig() async {
     try {
       setState(() {
         _isAuthenticating = true;
@@ -415,6 +428,30 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
     }
   }
 
+  Future<void> _checkBiometrics() async {
+    try {
+      setState(() {
+        _isAuthenticating = true;
+      });
+      bool authenticated = await _localAuthService.authenticateUser();
+      setState(() {
+        _isAuthenticating = false;
+      });
+      if (authenticated) {
+        _routeToHomeScreen();
+      } else {
+        if (mounted) {
+          mySnackbar(context, "Fehler beim biometrischen Anmeldeverfahren.");
+        }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      if (mounted) {
+        mySnackbar(context, "Fehler beim biometrischen Anmeldeverfahren.");
+      }
+    }
+  }
+
   void _routeToHomeScreen() async {
     await Future.delayed(const Duration(milliseconds: 300));
 
@@ -434,6 +471,14 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
     }
   }
 
+  Future<void> _refreshBiometricState() async {
+    await refreshBiometricState(context, false, false);
+    if (availableBiometricsString == "Biometrics ist nicht aktiv") {
+      _isConfigBiometricDone = false;
+    }
+    setState(() {});
+  }
+
   @override
   void dispose() {
     _usernameNode.dispose();
@@ -442,7 +487,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
     _passwordController.dispose();
     _animationController.dispose();
     _routeAnimationController.dispose();
-
+    _updateAvailableBioStringTimer?.cancel();
     super.dispose();
   }
 
@@ -708,52 +753,85 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                                   builder: (context, value, child) {
                                     if (value) {
                                       return GestureDetector(
+                                        behavior: HitTestBehavior.opaque,
                                         onTap: () {
-                                          if (isBiometricConfigured &&
-                                              isLoggedIn) {
-                                            _checkBiometricsAfterLogin();
+                                          if (isBiometricConfigured) {
+                                            _checkBiometrics();
                                           } else {
-                                            _askConfigBiometric();
+                                            _askConfigBiometric(context);
                                           }
                                         },
-                                        child: Stack(
-                                          clipBehavior: Clip.none,
-                                          children: [
-                                            ScaleTransition(
-                                              scale: _scaleAnimation,
-                                              child: SizedBox(
-                                                height: 90,
-                                                child: Image.asset(
-                                                    "assets/images/FaceID.png"),
-                                              ),
-                                            ),
-                                            _isConfigBiometricDone
-                                                ? const Positioned(
-                                                    top: -5,
-                                                    right: 0,
-                                                    child:
-                                                        MyAnimatedCheckmark())
-                                                : const SizedBox(),
-                                            const Positioned(
-                                              bottom: 7,
-                                              left: 23,
-                                              child: SizedBox(
-                                                child: Text(
-                                                  "Face ID",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w700,
+                                        child: SizedBox(
+                                          height: 90,
+                                          width: 150,
+                                          child: Stack(
+                                            clipBehavior: Clip.none,
+                                            children: [
+                                              Positioned(
+                                                top: 0,
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: SizedBox(
+                                                    height: 50,
+                                                    width: 150,
+                                                    child: ScaleTransition(
+                                                      scale: _scaleAnimation,
+                                                      child: availableBiometricsString !=
+                                                              "Biometrics ist nicht aktiv"
+                                                          ? SvgPicture.asset(
+                                                              localAuthAssets[
+                                                                  availableBiometricsString]!,
+                                                              color:
+                                                                  Colors.white,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              height: 50,
+                                                            )
+                                                          : MyRotatingSvg(
+                                                              assetPath:
+                                                                  localAuthAssets[
+                                                                      availableBiometricsString]!,
+                                                              height: 50,
+                                                            ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            )
-                                          ],
+                                              _isConfigBiometricDone
+                                                  ? const Positioned(
+                                                      top: -12,
+                                                      right: 28,
+                                                      child:
+                                                          MyAnimatedCheckmark())
+                                                  : const SizedBox(),
+                                              Positioned(
+                                                bottom: 10,
+                                                left: 0,
+                                                width: 150,
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    availableBiometricsString !=
+                                                            "Biometrics ist nicht aktiv"
+                                                        ? "${isBiometricConfigured ? "Mit " : ""}$availableBiometricsString ${isBiometricConfigured ? "Anmelden" : _isConfigBiometricDone ? "ist Eingestellt" : "Einstellen"}"
+                                                        : "Biometrics ist nicht aktiv",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       );
                                     } else {
                                       return SizedBox(
-                                        height: 90,
+                                        height: 50,
                                       );
                                     }
                                   },

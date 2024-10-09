@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sficon/flutter_sficon.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
 import 'package:purus_lern_app/src/data/app_info.dart';
-import 'package:purus_lern_app/src/widgets/menu_cards_widget.dart';
+import 'package:purus_lern_app/src/widgets/my_menu_cards_widget.dart';
 import 'package:purus_lern_app/src/features/mainmenu/data/menu_card_list.dart';
 import 'package:purus_lern_app/src/features/mainmenu/presentation/widgets/preview_video_widget.dart';
 
@@ -18,7 +18,7 @@ class MainmenuScreen extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 12.0, left: 12, right: 12),
-            child: MenuCardsWidget(
+            child: MyMenuCardsWidget(
               onTap: () {},
               width: double.infinity,
               padding: 5,
@@ -170,7 +170,7 @@ class MainmenuScreen extends StatelessWidget {
                     crossAxisCount: 2,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return MenuCardsWidget(
+                    return MyMenuCardsWidget(
                       onTap: () {},
                       title: menuItems[index].title,
                       child: menuItems[index].child,

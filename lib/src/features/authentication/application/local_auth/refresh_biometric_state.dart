@@ -9,6 +9,8 @@ Future<void> refreshBiometricState(
   isDeviceSupportedForBiometric.value =
       await LocalAuthService().isDeviceSupported();
   await checkBiometricAvailability();
+  availableBiometricsString =
+      await LocalAuthService().getAvailableBiometricsInString();
   if (isMounted && showSnack) {
     // ignore: use_build_context_synchronously
     mySnackbar(context, "Verfügbarkeit biometrischer Anmeldung wurde geprüft.");

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
 
-class MenuCardsWidget extends StatelessWidget {
-  const MenuCardsWidget({
+class MyMenuCardsWidget extends StatelessWidget {
+  const MyMenuCardsWidget({
     super.key,
     required this.title,
     required this.child,

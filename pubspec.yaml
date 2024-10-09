@@ -131,3 +131,4 @@ flutter:
     - assets/app_icons/
     - assets/logos/
     - assets/videos/
+    - assets/local_auth/

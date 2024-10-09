@@ -95,7 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     refreshBiometricState(context, mounted, true);
                   },
                   child: Text(
-                      "Refresh biometric state / App Neustarten hinweisen?")),
+                      "Refresh biometric state auto wie loginplace / App Neustarten hinweisen?")),
               TextButton(
                   onPressed: () {
                     logout(context);

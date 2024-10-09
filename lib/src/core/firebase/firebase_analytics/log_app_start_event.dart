@@ -20,6 +20,7 @@ Future<void> logAppStartEvent() async {
         "isBiometricAvailable": isBiometricAvailable.value.toString(),
         "isDeviceSupportedForBiometric":
             isDeviceSupportedForBiometric.value.toString(),
+        "availableBiometricsString": availableBiometricsString.toString(),
         // "os_version": "12.4.5",
         // "device_model": "iPhone 13 Pro",
         // "app_language": "en",
