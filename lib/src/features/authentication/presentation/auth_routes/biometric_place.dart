@@ -6,15 +6,15 @@ import 'package:purus_lern_app/src/features/authentication/application/local_aut
 import 'package:purus_lern_app/src/widgets/my_snack_bar.dart';
 import 'package:purus_lern_app/src/widgets/my_text_button.dart';
 
-class FaceidPlace extends StatefulWidget {
-  const FaceidPlace({super.key, required this.transitionToRoute});
+class BiometricPlace extends StatefulWidget {
+  const BiometricPlace({super.key, required this.transitionToRoute});
   final void Function(String route) transitionToRoute;
 
   @override
-  State<FaceidPlace> createState() => _FaceidPlaceState();
+  State<BiometricPlace> createState() => _BiometricPlaceState();
 }
 
-class _FaceidPlaceState extends State<FaceidPlace>
+class _BiometricPlaceState extends State<BiometricPlace>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
@@ -123,7 +123,7 @@ class _FaceidPlaceState extends State<FaceidPlace>
                   ),
                 ),
                 MyTextButton(
-                  text: "Ohne FaceID anmelden",
+                  text: "Zum klassischen Login",
                   onPressed: () {
                     widget.transitionToRoute("Login");
                   },

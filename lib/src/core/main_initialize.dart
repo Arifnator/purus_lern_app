@@ -4,8 +4,8 @@ import 'package:purus_lern_app/src/core/firebase/initialize_firebase.dart';
 import 'package:purus_lern_app/src/core/get_app_info.dart';
 import 'package:purus_lern_app/src/core/get_platform_as_string.dart';
 import 'package:purus_lern_app/src/core/presentation/rive_manager.dart';
-import 'package:purus_lern_app/src/features/authentication/data/shared_pref/faceid_dont_ask_me_again_sharedpred.dart';
-import 'package:purus_lern_app/src/features/authentication/data/shared_pref/faceid_sharedpref.dart';
+import 'package:purus_lern_app/src/features/authentication/data/shared_pref/biometric_dont_ask_me_again_sharedpred.dart';
+import 'package:purus_lern_app/src/features/authentication/data/shared_pref/biometric_sharedpref.dart';
 import 'package:purus_lern_app/src/features/authentication/application/local_auth/check_biometric_availability.dart';
 import 'package:purus_lern_app/src/features/authentication/application/local_auth/local_auth_service.dart';
 import 'package:purus_lern_app/src/features/authentication/data/shared_pref/onboarding_status_sharedpref.dart';
@@ -23,9 +23,10 @@ Future<void> initializeApp() async {
   isLoggedIn = await StayLoggedInSharedpref().checkLoginStatus();
   isOnboardingNotComplete =
       !await OnboardingStatusSharedpref().isOnboardingDone();
-  isFaceIdConfigured = await FaceidSharedpref().getFaceIdAvailability();
-  faceIdAskedBeforeAndNo =
-      await FaceidDontAskMeAgainSharedpref().getDontAskAgainPreference();
+  isBiometricConfigured =
+      await BiometricsSharedpref().getBiometricsAvailability();
+  biometricAskedBeforeAndNo =
+      await BiometricDontAskMeAgainSharedpref().getDontAskAgainPreference();
   isDeviceSupportedForBiometric.value =
       await LocalAuthService().isDeviceSupported();
   checkBiometricAvailability();

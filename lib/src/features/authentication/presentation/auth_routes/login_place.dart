@@ -7,8 +7,8 @@ import "package:purus_lern_app/src/config/palette.dart";
 import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_errors.dart";
 import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_login.dart";
 import "package:purus_lern_app/src/core/presentation/home_screen.dart";
-import "package:purus_lern_app/src/features/authentication/data/shared_pref/faceid_dont_ask_me_again_sharedpred.dart";
-import "package:purus_lern_app/src/features/authentication/data/shared_pref/faceid_sharedpref.dart";
+import "package:purus_lern_app/src/features/authentication/data/shared_pref/biometric_dont_ask_me_again_sharedpred.dart";
+import "package:purus_lern_app/src/features/authentication/data/shared_pref/biometric_sharedpref.dart";
 import "package:purus_lern_app/src/features/authentication/application/local_auth/check_biometric_availability.dart";
 import "package:purus_lern_app/src/features/authentication/application/local_auth/local_auth_service.dart";
 import "package:purus_lern_app/src/features/authentication/data/shared_pref/stay_logged_in_sharedpref.dart";
@@ -17,7 +17,7 @@ import "package:purus_lern_app/src/widgets/my_animated_checkmark.dart";
 import "package:purus_lern_app/src/widgets/my_button.dart";
 import "package:purus_lern_app/src/widgets/my_snack_bar.dart";
 import "package:purus_lern_app/src/widgets/my_textfield.dart";
-import "package:scaled_app/scaled_app.dart";
+// import "package:scaled_app/scaled_app.dart";
 
 // angemeldet bleiben händeln
 // direkt faceid alowment ayarla? apple? (beschreiben yap?)
@@ -67,7 +67,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
 
   final LocalAuthService _localAuthService = LocalAuthService();
   bool _isAuthenticating = false;
-  bool _isConfigFaceidDone = false;
+  bool _isConfigBiometricDone = false;
   bool _dontAskMeAgain = false;
 
   @override
@@ -126,12 +126,12 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
       }
 
       if (isBiometricAvailable.value &&
-          !isFaceIdConfigured &&
-          !_isConfigFaceidDone &&
-          !faceIdAskedBeforeAndNo) {
-        _askConfigFaceIdAfterLogin();
-      } else if (isBiometricAvailable.value && _isConfigFaceidDone) {
-        updateFaceId(true);
+          !isBiometricConfigured &&
+          !_isConfigBiometricDone &&
+          !biometricAskedBeforeAndNo) {
+        _askConfigBiometricAfterLogin();
+      } else if (isBiometricAvailable.value && _isConfigBiometricDone) {
+        updateBiometrics(true);
         _routeToHomeScreen();
       } else {
         _routeToHomeScreen();
@@ -188,7 +188,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
     }
   }
 
-  void _askConfigFaceIdAfterLogin() {
+  void _askConfigBiometricAfterLogin() {
     setState(() {
       _isAuthenticating = true;
     });
@@ -245,10 +245,10 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                     });
                     Navigator.pop(context);
                     _routeToHomeScreen();
-                    updateFaceId(false);
+                    updateBiometrics(false);
 
                     if (_dontAskMeAgain) {
-                      FaceidDontAskMeAgainSharedpref()
+                      BiometricDontAskMeAgainSharedpref()
                           .setDontAskAgainPreference(true);
                     }
 
@@ -268,7 +268,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                     _checkBiometricsAfterLogin();
 
                     if (_dontAskMeAgain) {
-                      FaceidDontAskMeAgainSharedpref()
+                      BiometricDontAskMeAgainSharedpref()
                           .setDontAskAgainPreference(true);
                     }
                   },
@@ -296,14 +296,14 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
       });
       if (authenticated) {
         _routeToHomeScreen();
-        updateFaceId(true);
+        updateBiometrics(true);
         if (mounted) {
           mySnackbar(context,
               "Biometrisches Anmeldeverfahren erfolgreich eingerichtet.");
         }
       } else {
         _routeToHomeScreen();
-        updateFaceId(false);
+        updateBiometrics(false);
         await checkBiometricAvailability();
         if (!isBiometricAvailable.value) {
           setState(() {});
@@ -327,7 +327,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
     }
   }
 
-  void _askConfigFaceId() {
+  void _askConfigBiometric() {
     setState(() {
       _isAuthenticating = true;
     });
@@ -342,7 +342,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
               onPressed: () {
                 setState(() {
                   _isAuthenticating = false;
-                  _isConfigFaceidDone = false;
+                  _isConfigBiometricDone = false;
                 });
                 Navigator.pop(context);
                 if (mounted) {
@@ -381,7 +381,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
 
       setState(() {
         _isAuthenticating = false;
-        _isConfigFaceidDone = authenticated;
+        _isConfigBiometricDone = authenticated;
       });
 
       if (authenticated) {
@@ -709,11 +709,11 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                                     if (value) {
                                       return GestureDetector(
                                         onTap: () {
-                                          if (isFaceIdConfigured &&
+                                          if (isBiometricConfigured &&
                                               isLoggedIn) {
                                             _checkBiometricsAfterLogin();
                                           } else {
-                                            _askConfigFaceId();
+                                            _askConfigBiometric();
                                           }
                                         },
                                         child: Stack(
@@ -727,7 +727,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                                                     "assets/images/FaceID.png"),
                                               ),
                                             ),
-                                            _isConfigFaceidDone
+                                            _isConfigBiometricDone
                                                 ? const Positioned(
                                                     top: -5,
                                                     right: 0,

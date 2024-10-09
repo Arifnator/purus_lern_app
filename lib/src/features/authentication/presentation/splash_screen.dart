@@ -13,7 +13,7 @@ import "package:purus_lern_app/src/widgets/my_animated_bottom_bar_widget.dart";
 import "package:rive/rive.dart";
 import "package:purus_lern_app/src/core/presentation/home_screen.dart";
 import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/onboarding_place.dart";
-import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/faceid_place.dart";
+import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/biometric_place.dart";
 import "package:purus_lern_app/src/features/authentication/presentation/auth_routes/login_place.dart";
 
 class SplashScreen extends StatefulWidget {
@@ -91,7 +91,7 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         ],
       ),
-      "FaceId": FaceidPlace(transitionToRoute: _transitionToRoute),
+      "Biometric": BiometricPlace(transitionToRoute: _transitionToRoute),
       "Login": LoginPlace(transitionToRoute: _transitionToRoute),
       "ForgotPassword":
           ForgotPasswordPlace(transitionToRoute: _transitionToRoute),
@@ -133,9 +133,9 @@ class _SplashScreenState extends State<SplashScreen>
           setState(() {
             placeRouteNotifier.value = "Onboarding";
           });
-        } else if (isBiometricAvailable.value && isFaceIdConfigured) {
+        } else if (isBiometricAvailable.value && isBiometricConfigured) {
           setState(() {
-            placeRouteNotifier.value = "FaceId";
+            placeRouteNotifier.value = "Biometric";
           });
         } else {
           setState(() {

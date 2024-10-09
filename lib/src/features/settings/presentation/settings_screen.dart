@@ -2,8 +2,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/core/get_app_info.dart';
-import 'package:purus_lern_app/src/features/authentication/data/shared_pref/faceid_dont_ask_me_again_sharedpred.dart';
-import 'package:purus_lern_app/src/features/authentication/data/shared_pref/faceid_sharedpref.dart';
+import 'package:purus_lern_app/src/features/authentication/data/shared_pref/biometric_dont_ask_me_again_sharedpred.dart';
+import 'package:purus_lern_app/src/features/authentication/data/shared_pref/biometric_sharedpref.dart';
 import 'package:purus_lern_app/src/features/authentication/application/go_to_biometric_settings.dart';
 import 'package:purus_lern_app/src/features/authentication/application/local_auth/check_biometric_availability.dart';
 import 'package:purus_lern_app/src/features/authentication/application/local_auth/local_auth_service.dart';
@@ -38,7 +38,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       if (authenticated) {
         if (mounted) {
           setState(() {
-            updateFaceId(true);
+            updateBiometrics(true);
           });
           if (mounted) {
             mySnackbar(context,
@@ -47,7 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         }
       } else {
         setState(() {
-          updateFaceId(false);
+          updateBiometrics(false);
         });
         await checkBiometricAvailability();
         if (!isBiometricAvailable.value) {
@@ -112,11 +112,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: const Text("Reset Onboarding")),
               TextButton(
                   onPressed: () async {
-                    faceIdAskedBeforeAndNo = false;
-                    await FaceidDontAskMeAgainSharedpref()
+                    biometricAskedBeforeAndNo = false;
+                    await BiometricDontAskMeAgainSharedpref()
                         .setDontAskAgainPreference(false);
                   },
-                  child: const Text("Reset faceid Dont ask me again")),
+                  child: const Text("Reset Biometric Dont ask me again")),
               SizedBox(
                 height: 300,
                 width: 200,
@@ -124,7 +124,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   valueListenable: isBiometricAvailable,
                   builder: (context, value, child) {
                     if (value) {
-                      if (isFaceIdConfigured) {
+                      if (isBiometricConfigured) {
                         return TextButton(
                             onPressed: () async {
                               setState(() {
@@ -159,11 +159,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                             onPressed: () async {
                                               Navigator.pop(context);
                                               setState(() {
-                                                isFaceIdConfigured = false;
+                                                isBiometricConfigured = false;
                                                 _isAuthenticating = false;
                                               });
-                                              await FaceidSharedpref()
-                                                  .setFaceIdAvailability(false);
+                                              await BiometricsSharedpref()
+                                                  .setBiometricsAvailability(
+                                                      false);
                                             },
                                             child: const Text(
                                               "Ja",

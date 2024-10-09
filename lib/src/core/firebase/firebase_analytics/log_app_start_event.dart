@@ -15,8 +15,8 @@ Future<void> logAppStartEvent() async {
         "installerStore": installerStore,
         "isLoggedIn": isLoggedIn.toString(),
         "isOnboardingNotComplete": isOnboardingNotComplete.toString(),
-        "isFaceIdConfigured": isFaceIdConfigured.toString(),
-        "faceIdAskedBeforeAndNo": faceIdAskedBeforeAndNo.toString(),
+        "isBiometricConfigured": isBiometricConfigured.toString(),
+        "biometricAskedBeforeAndNo": biometricAskedBeforeAndNo.toString(),
         "isBiometricAvailable": isBiometricAvailable.value.toString(),
         "isDeviceSupportedForBiometric":
             isDeviceSupportedForBiometric.value.toString(),

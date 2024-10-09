@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FaceidDontAskMeAgainSharedpref {
+class BiometricDontAskMeAgainSharedpref {
   Future<void> setDontAskAgainPreference(bool value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('dontAskForBiometricsAgain', value);
