@@ -12,6 +12,7 @@ import 'package:purus_lern_app/src/features/authentication/application/local_aut
 import 'package:purus_lern_app/src/features/authentication/data/shared_pref/onboarding_status_sharedpref.dart';
 import 'package:purus_lern_app/src/features/authentication/data/shared_pref/stay_logged_in_sharedpref.dart';
 import 'package:purus_lern_app/src/features/authentication/data/login_conditions.dart';
+import 'package:purus_lern_app/src/features/chatbot/data/chatbot_current_message.dart';
 
 Future<void> initializeApp() async {
   currentPlatform = getPlatformAsString();
@@ -43,6 +44,8 @@ Future<void> initializeApp() async {
   debugPrint("isBiometricAvailable: $isBiometricAvailable");
   debugPrint("isDeviceSupportedForBiometric: $isDeviceSupportedForBiometric");
   debugPrint("availableBiometricsString: $availableBiometricsString");
-  
+
   logAppStartEvent();
+
+  chatbotCurrentMessage = "Hallo ";
 }

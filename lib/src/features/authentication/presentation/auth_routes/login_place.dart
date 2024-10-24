@@ -10,6 +10,7 @@ import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_errors.d
 import "package:purus_lern_app/src/core/firebase/firebase_analytics/log_login.dart";
 import "package:purus_lern_app/src/core/presentation/home_screen.dart";
 import "package:purus_lern_app/src/features/authentication/application/local_auth/refresh_biometric_state.dart";
+import "package:purus_lern_app/src/features/authentication/application/moodle/login_req.dart";
 import "package:purus_lern_app/src/features/authentication/data/local_auth_assets.dart";
 import "package:purus_lern_app/src/features/authentication/data/shared_pref/biometric_dont_ask_me_again_sharedpred.dart";
 import "package:purus_lern_app/src/features/authentication/data/shared_pref/biometric_sharedpref.dart";
@@ -116,6 +117,8 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
   // }
 
   void _validation() {
+    loginReq(_usernameController.text, _passwordController.text);
+
     if (_usernameController.text == "admin") {
       _isUsernameValid = true;
       if (_passwordController.text == "0000") {
@@ -814,7 +817,7 @@ class _LoginPlaceState extends State<LoginPlace> with TickerProviderStateMixin {
                                                   child: Text(
                                                     availableBiometricsString !=
                                                             "Biometrics sind nicht aktiv"
-                                                        ? "${isBiometricConfigured ? "Mit " : ""}$availableBiometricsString ${isBiometricConfigured ? "Anmelden" : _isConfigBiometricDone ? "ist Eingestellt" : "Einstellen"}"
+                                                        ? "${isBiometricConfigured ? "Mit " : ""}$availableBiometricsString ${isBiometricConfigured ? "Anmelden" : _isConfigBiometricDone ? "ist eingerichtet" : "einrichten"}"
                                                         : "Biometrics sind nicht aktiv",
                                                     style: TextStyle(
                                                       color: Colors.white,

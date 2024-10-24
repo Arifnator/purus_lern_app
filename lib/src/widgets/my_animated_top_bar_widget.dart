@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:purus_lern_app/src/config/my_text_styles.dart';
 import 'package:purus_lern_app/src/config/palette.dart';
+import 'package:purus_lern_app/src/features/chatbot/presentation/chatbot_messages_text_widget.dart';
+import 'package:purus_lern_app/src/features/chatbot/presentation/chatbot_screen.dart';
 
 class MyAnimatedTopBarWidget extends StatelessWidget
     implements PreferredSizeWidget {
@@ -21,55 +24,45 @@ class MyAnimatedTopBarWidget extends StatelessWidget
           const Expanded(
             child: SizedBox(),
           ),
-          Row(
-            children: [
-              const Expanded(
-                flex: 2,
-                child: SizedBox(),
-              ),
-              Material(
-                color: purusGrey,
-                elevation: 6,
-                shadowColor: Colors.black,
-                clipBehavior: Clip.hardEdge,
-                shape: const CircleBorder(),
-                child: SizedBox(
-                    height: 80,
-                    width: 80,
-                    child: Image.asset(
-                      "assets/images/Ellipse64.png",
-                      fit: BoxFit.cover,
-                    )),
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              const SizedBox(
-                height: 80,
-                width: 200,
-                child: Column(
+          SizedBox(
+            height: 80,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Willkommen",
+                      "Hallo Arif!",
                       style: MyTextStyles.mainTitle,
                     ),
-                    Text(
-                      "Herr Arif Ayduran!",
-                      style: MyTextStyles.subTitle,
-                    ),
+                    ChatbotMessagesTextWidget(),
                   ],
                 ),
-              ),
-              const Expanded(
-                flex: 3,
-                child: SizedBox(),
-              ),
-            ],
+                const SizedBox(
+                  width: 30,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                ChatbotScreen()));
+                  },
+                  child: Lottie.asset(
+                    "assets/animations/chatbot.json",
+                    height: 80,
+                    width: 80,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
         ],
       ),
@@ -77,5 +70,5 @@ class MyAnimatedTopBarWidget extends StatelessWidget
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(120);
+  Size get preferredSize => const Size.fromHeight(100);
 }

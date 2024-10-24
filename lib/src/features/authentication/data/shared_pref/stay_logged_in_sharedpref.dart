@@ -2,10 +2,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
 class StayLoggedInSharedpref {
-  Future<void> setLoginStatus(bool StayLoggedInSharedpref) async {
+  Future<void> setLoginStatus(bool stayLoggedInSharedpref) async {
     final prefs = await SharedPreferences.getInstance();
 
-    if (StayLoggedInSharedpref) {
+    if (stayLoggedInSharedpref) {
       await prefs.setBool('isLoggedIn', true);
 
       String loginDate = DateFormat('yyyy-MM-dd').format(DateTime.now());

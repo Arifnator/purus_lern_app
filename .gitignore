@@ -14,6 +14,8 @@ lib/firebase_options.dart
 firebase.json
 GoogleService-Info.plist
 google-services.json
+lib/src/features/authentication/application/moodle/auth_token.dart
+lib/src/features/chatbot/application/chatbot_apikey.dart
 
 # IntelliJ related
 *.iml
