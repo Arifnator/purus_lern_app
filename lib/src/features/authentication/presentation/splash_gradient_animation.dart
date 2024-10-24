@@ -21,7 +21,7 @@ class _SplashGradientAnimationState extends State<SplashGradientAnimation>
   @override
   void initState() {
     super.initState();
-    playSplashSound(audioPlayer);
+    playSplashSound();
 
     _gradientAnimationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));

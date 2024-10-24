@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:purus_lern_app/src/config/my_text_styles.dart';
+import 'package:flutter_chat_bubble/chat_bubble.dart';
+import 'package:purus_lern_app/src/config/palette.dart';
 import 'package:purus_lern_app/src/features/chatbot/application/chatbot_random_message.dart';
 import 'dart:async';
-
 import 'package:purus_lern_app/src/features/chatbot/data/chatbot_current_message.dart';
 
 class ChatbotMessagesTextWidget extends StatefulWidget {
@@ -19,7 +19,7 @@ class _ChatbotMessagesTextWidgetState extends State<ChatbotMessagesTextWidget> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(seconds: 30), (Timer timer) {
+    _timer = Timer.periodic(Duration(seconds: 45), (Timer timer) {
       setState(() {
         chatbotCurrentMessage = getRandomChatbotMessage();
       });
@@ -34,10 +34,36 @@ class _ChatbotMessagesTextWidgetState extends State<ChatbotMessagesTextWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      chatbotCurrentMessage,
-      style: MyTextStyles.subTitle,
-      overflow: TextOverflow.ellipsis,
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          chatbotCurrentMessage = getRandomChatbotMessage();
+        });
+      },
+      child: ChatBubble(
+        clipper: ChatBubbleClipper8(type: BubbleType.sendBubble),
+        backGroundColor: purusGreen,
+        shadowColor: Colors.black,
+        elevation: 5,
+        alignment: Alignment.center,
+        child: Text(
+          // chatbotMessages[0],
+          chatbotCurrentMessage,
+          //   "purusLightGreypurusLightGreypurusLightGreypurusLightGreypurusLightGreypurusLightGreypurusLightGreypurusLightGreypurusLightGreypurusLightGreypurusLightGrey",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            height: 1.2,
+            letterSpacing: -0.7,
+          ),
+          maxLines: 4,
+          softWrap: true,
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
     );
   }
 }

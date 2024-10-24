@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:purus_lern_app/src/features/chatbot/application/chatbot_service.dart';
 
 class ChatbotScreen extends StatefulWidget {
-  const ChatbotScreen({super.key});
+  const ChatbotScreen({super.key, required this.firstRequest});
+  final String firstRequest;
 
   @override
   State<ChatbotScreen> createState() => _ChatbotScreenState();
@@ -12,6 +13,13 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   final ChatbotService _chatbotService = ChatbotService();
   final TextEditingController _userMessageController = TextEditingController();
   String _response = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _sendMessage(context,
+        "Begrüße den Nutzer lustig und motivierend, nehme Bezug auf deinen vorigem Sprachbubble: ${widget.firstRequest}");
+  }
 
   void _sendMessage(BuildContext context, String userMessage) async {
     String botResponse =
@@ -25,7 +33,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Purutus')),
+      appBar: AppBar(title: Text('Purutus Chatbot')),
       body: Column(
         children: [
           Expanded(

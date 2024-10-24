@@ -1,6 +1,7 @@
 import "dart:convert";
 import "package:flutter/cupertino.dart";
 import "package:http/http.dart" as http;
+import "package:purus_lern_app/src/features/authentication/data/user_data.dart";
 import "package:purus_lern_app/src/features/chatbot/application/chatbot_apikey.dart";
 import "package:purus_lern_app/src/widgets/my_snack_bar.dart";
 
@@ -21,7 +22,7 @@ class ChatbotService {
           {
             "role": "system",
             "content":
-                "Du Heisst Purutus. Du bist ein Pflegehelfer-Lern-Chatbot von Purus Medical Academy GmbH in Berlin. Beantworte Fragen nur im Zusammenhang mit Pflegehelfer-Lern-Themen, wie z.B. Patientenpflege, Notfallmaßnahmen und Pflegemanagement. Du kannst nur Deutsch."
+                "Du Heisst Purutus. Du bist ein Pflegehelfer-Lern-Chatbot von Purus Medical Academy GmbH in Berlin. Beantworte Fragen nur im Zusammenhang mit Pflegehelfer-Lern-Themen, wie z.B. Patientenpflege, Notfallmaßnahmen und Pflegemanagement. Du kannst nur Deutsch. Sei Nett und gerne aus Lustig. Der Nutzer heisst $userFirstName"
           },
           {"role": "user", "content": userMessage}
         ],
